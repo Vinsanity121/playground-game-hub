@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#11131d" />
     <meta name="description" content="Play small games made by the Playground team." />
     <title>Playground — Pick a game</title>
-    <link rel="stylesheet" href="styles.css?v=8" />
-    <script src="app.js?v=6" defer></script>
+    <link rel="stylesheet" href="styles.css?v=9" />
+    <script src="app.js?v=7" defer></script>
     <script src="energy.js?v=1" defer></script>
   </head>
   <body>
@@ -19,13 +19,14 @@
         <button class="tab" data-view="orbit" aria-pressed="false">Orbit Dodge</button>
         <button class="tab" data-view="memory" aria-pressed="false">Memory Flip</button>
         <button class="tab" data-view="sun" aria-pressed="false">Energy Collector</button>
+        <button class="tab" data-view="doge" aria-pressed="false">Doge Miner</button>
       </nav>
     </header>
     <main>
       <section class="view home-view" id="home-view">
         <div class="home-hero">
           <div class="hero-copy">
-            <p class="eyebrow">PLAYGROUND · ORIGINAL GAMES</p>
+            <p class="eyebrow">PLAYGROUND · GAMES</p>
             <h1>Pick a game.<br /><span>Make it count.</span></h1>
             <button class="play-button" type="button" data-open-view="mine">Play now <span aria-hidden="true">↗</span></button>
           </div>
@@ -43,7 +44,7 @@
 
         <div class="collection-heading">
           <p class="eyebrow">THE COLLECTION</p>
-          <span>04 GAMES</span>
+          <span>05 GAMES</span>
         </div>
         <div class="game-grid">
           <article class="home-card">
@@ -85,6 +86,15 @@
               <span class="art-play" aria-hidden="true">↗</span>
             </button>
             <div class="card-caption"><h2>Energy Collector</h2><span>BUILD A POWER GRID</span></div>
+          </article>
+          <article class="home-card">
+            <button class="card-art art-doge" type="button" data-open-view="doge" aria-label="Play Doge Miner 2">
+              <span class="art-label">05 · IDLE</span>
+              <span class="doge-mascot" aria-hidden="true">🐕</span>
+              <span class="doge-coin" aria-hidden="true">Ð</span>
+              <span class="art-play" aria-hidden="true">↗</span>
+            </button>
+            <div class="card-caption"><h2>Doge Miner 2</h2><span>CLICKER ADVENTURE</span></div>
           </article>
         </div>
       </section>
@@ -263,6 +273,22 @@
           </section>
         </div>
         <div class="sun-toast" id="sun-toast" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="view doge-view hidden" id="doge-view">
+        <div class="title-row doge-title-row">
+          <div><p class="eyebrow">BROWSER CLICKER</p><h1>Doge Miner 2</h1></div>
+          <a class="play-button doge-external-link" href="https://dogeminer2.com/play/" target="_blank" rel="noopener noreferrer">Open directly ↗</a>
+        </div>
+        <div class="doge-frame-wrap">
+          <iframe
+            title="Doge Miner 2"
+            src="https://dogeminer2.com/play/"
+            allow="autoplay; fullscreen; gamepad"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
       </section>
     </main>
   </body>

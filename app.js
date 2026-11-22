@@ -5,6 +5,7 @@ const views = {
   orbit: document.querySelector('#orbit-view'),
   memory: document.querySelector('#memory-view'),
   sun: document.querySelector('#sun-view'),
+  doge: document.querySelector('#doge-view'),
 };
 
 function showView(name) {

@@ -1,6 +1,6 @@
 # Playground
 
-A small game hub built with HTML, CSS, and JavaScript. It includes Catch the Spark, Orbit Dodge, Memory Flip, and Energy Collector.
+A small game hub built with HTML, CSS, and JavaScript. It includes Catch the Spark, Orbit Dodge, Memory Flip, Energy Collector, and an embedded Doge Miner 2 browser game.
 
 Energy Collector is an idle energy game with 20 power stations, research, achievements, random Energy Surges, four Grid Lab minigames, 24-hour Core Crystals, offline earnings, and Legacy Watt reboots. Progress saves in the browser. Set the operator name to `ignitethegrid` to open the public test tools.
 
