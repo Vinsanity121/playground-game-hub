@@ -2,13 +2,14 @@ const tabs = document.querySelectorAll('.tab');
 const views = {
   mine: document.querySelector('#mine-view'),
   orbit: document.querySelector('#orbit-view'),
-  coolmath: document.querySelector('#coolmath-view'),
+  memory: document.querySelector('#memory-view'),
 };
 
 tabs.forEach((tab) => tab.addEventListener('click', () => {
   tabs.forEach((item) => item.classList.toggle('active', item === tab));
   Object.entries(views).forEach(([name, view]) => view.classList.toggle('hidden', name !== tab.dataset.view));
   if (tab.dataset.view === 'orbit') sizeOrbitCanvas();
+  if (tab.dataset.view === 'memory') sizeMemoryBoard();
 }));
 
 // Catch the Spark
@@ -256,3 +257,123 @@ document.querySelectorAll('[data-move]').forEach((button) => {
 });
 
 sizeOrbitCanvas();
+
+// Memory Flip
+const memoryBoard = document.querySelector('#memory-board');
+const memoryMessage = document.querySelector('#memory-message');
+const memoryStart = document.querySelector('#memory-start');
+const memoryStatus = document.querySelector('#memory-status');
+const memoryMovesDisplay = document.querySelector('#memory-moves');
+const memoryTimeDisplay = document.querySelector('#memory-time');
+const memoryBestDisplay = document.querySelector('#memory-best');
+const symbols = ['🎮', '🚀', '🌙', '💎', '🌟', '🪐', '🛸', '⚡'];
+let memoryCards = [];
+let flippedCards = [];
+let matchedPairs = 0;
+let memoryMoves = 0;
+let memorySeconds = 0;
+let memoryRunning = false;
+let memoryLocked = false;
+let memoryClock;
+let memoryFlipTimeout;
+let memoryBest = Number(localStorage.getItem('playground-memory-best') || 0);
+memoryBestDisplay.textContent = memoryBest ? `${memoryBest} moves` : '—';
+
+function sizeMemoryBoard() {
+  memoryBoard.style.setProperty('--card-count', '4');
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function formatMemoryTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainder = seconds % 60;
+  return `${String(minutes).padStart(2, '0')}:${String(remainder).padStart(2, '0')}`;
+}
+
+function startMemoryGame() {
+  clearInterval(memoryClock);
+  clearTimeout(memoryFlipTimeout);
+  memoryCards = shuffle([...symbols, ...symbols]);
+  flippedCards = [];
+  matchedPairs = 0;
+  memoryMoves = 0;
+  memorySeconds = 0;
+  memoryLocked = false;
+  memoryRunning = true;
+  memoryMovesDisplay.textContent = '0';
+  memoryTimeDisplay.textContent = '00:00';
+  memoryStatus.textContent = 'FIND ALL 8 PAIRS';
+  memoryMessage.hidden = true;
+  memoryStart.textContent = 'Restart';
+  memoryBoard.innerHTML = memoryCards.map((symbol, index) => `
+    <button class="memory-card" type="button" data-index="${index}" aria-label="Card ${index + 1}, face down">
+      <span class="memory-back" aria-hidden="true">✦</span>
+      <span class="memory-front" aria-hidden="true">${symbol}</span>
+    </button>`).join('');
+  memoryClock = setInterval(() => {
+    if (!memoryRunning) return;
+    memorySeconds += 1;
+    memoryTimeDisplay.textContent = formatMemoryTime(memorySeconds);
+  }, 1000);
+}
+
+function finishMemoryGame() {
+  memoryRunning = false;
+  clearInterval(memoryClock);
+  memoryStatus.textContent = 'ALL PAIRS FOUND';
+  memoryMessage.hidden = false;
+  memoryMessage.querySelector('strong').textContent = `Solved in ${memoryMoves} moves`;
+  memoryMessage.querySelector('span').textContent = `Time ${formatMemoryTime(memorySeconds)} · Shuffle to play again`;
+  if (!memoryBest || memoryMoves < memoryBest) {
+    memoryBest = memoryMoves;
+    localStorage.setItem('playground-memory-best', memoryBest);
+    memoryBestDisplay.textContent = `${memoryBest} moves`;
+  }
+  memoryStart.textContent = 'Again';
+}
+
+memoryStart.addEventListener('click', startMemoryGame);
+memoryBoard.addEventListener('click', (event) => {
+  const card = event.target.closest('.memory-card');
+  if (!card || !memoryRunning || memoryLocked || card.classList.contains('matched') || card.classList.contains('flipped')) return;
+  const index = Number(card.dataset.index);
+  card.classList.add('flipped');
+  card.setAttribute('aria-label', `Card ${index + 1}, ${memoryCards[index]}`);
+  flippedCards.push(card);
+  if (flippedCards.length < 2) return;
+
+  memoryMoves += 1;
+  memoryMovesDisplay.textContent = String(memoryMoves);
+  const [first, second] = flippedCards;
+  const firstSymbol = memoryCards[Number(first.dataset.index)];
+  const secondSymbol = memoryCards[Number(second.dataset.index)];
+  flippedCards = [];
+  if (firstSymbol === secondSymbol) {
+    first.classList.add('matched');
+    second.classList.add('matched');
+    first.setAttribute('aria-label', `Matched ${firstSymbol}`);
+    second.setAttribute('aria-label', `Matched ${secondSymbol}`);
+    matchedPairs += 1;
+    if (matchedPairs === symbols.length) finishMemoryGame();
+    return;
+  }
+
+  memoryLocked = true;
+  memoryFlipTimeout = setTimeout(() => {
+    [first, second].forEach((item) => {
+      item.classList.remove('flipped');
+      const itemIndex = Number(item.dataset.index);
+      item.setAttribute('aria-label', `Card ${itemIndex + 1}, face down`);
+    });
+    memoryLocked = false;
+  }, 700);
+});
+
+sizeMemoryBoard();
