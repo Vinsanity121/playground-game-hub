@@ -42,7 +42,7 @@ body{margin:0;background:var(--bg);color:#f8f8fc;font-family:'DM Sans',sans-seri
 .memory-hud{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 2px 14px;color:#aeb0c0;font:500 10px 'DM Mono',monospace;letter-spacing:.3px}
 .memory-hud b{color:var(--lime);font-size:13px}
 .memory-wrap{position:relative;padding:20px;border:1px solid #2c3044;border-radius:12px;background:#1a1d2b}
-.memory-board{width:min(100%,560px);margin:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.memory-board{width:min(100%,560px);aspect-ratio:1;margin:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:12px}
 .memory-card{position:relative;aspect-ratio:1;border:0;padding:0;border-radius:12px;background:transparent;perspective:700px;cursor:pointer}
 .memory-card span{position:absolute;inset:0;border-radius:12px;display:grid;place-items:center;backface-visibility:hidden;transition:transform .32s,background .2s,color .2s,border-color .2s}
 .memory-back{background:#292d43;border:1px solid #3a3e57;color:#aa9cff;font-size:clamp(17px,4vw,29px)}
