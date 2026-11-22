@@ -1,0 +1,41 @@
+name: Deploy game hub to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'goodgames/**'
+      - '.github/workflows/goodgames-deploy.yml'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: playground-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up Pages
+        uses: actions/configure-pages@v5
+      - name: Prepare public game hub only
+        run: |
+          mkdir -p "$RUNNER_TEMP/game-hub-site"
+          cp index.html styles.css app.js energy.js "$RUNNER_TEMP/game-hub-site/"
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/game-hub-site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
