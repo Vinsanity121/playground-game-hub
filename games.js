@@ -7,14 +7,6 @@ const gameOptions = {
     note: 'Clicker',
     cardClass: 'doge-card',
   },
-  cookie: {
-    title: 'Cookie Clicker',
-    sourceLabel: 'THIRD-PARTY PAGE',
-    url: 'https://cookieclickerunblocked.netlify.app/',
-    icon: '🍪',
-    note: 'Idle game',
-    cardClass: 'cookie-card',
-  },
   polytrack: {
     title: 'PolyTrack',
     sourceLabel: 'UNOFFICIAL BUILD',
@@ -31,14 +23,6 @@ const gameOptions = {
     note: 'Bike tracks',
     cardClass: 'freerider-jumps-card',
   },
-  freeriderhd: {
-    title: 'Free Rider HD',
-    sourceLabel: 'BIKE GAME',
-    url: 'https://www.freeriderhd.com/',
-    icon: '🚲',
-    note: 'Track builder',
-    cardClass: 'freerider-hd-card',
-  },
   snowrider: {
     title: 'Snow Rider 3D',
     sourceLabel: 'SNOW RACING',
@@ -46,14 +30,6 @@ const gameOptions = {
     icon: '❄',
     note: 'Sled racing',
     cardClass: 'snowrider-card',
-  },
-  shredsauce: {
-    title: 'Shred Sauce',
-    sourceLabel: 'SPORTS GAME',
-    url: 'https://shredsauce.com/',
-    icon: '🏂',
-    note: 'Ski & snowboard',
-    cardClass: 'shredsauce-card',
   },
   shellshock: {
     title: 'Shell Shockers',

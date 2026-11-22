@@ -2,7 +2,7 @@
 
 A browser game hub with Doge Miner 2, Cookie Clicker, PolyTrack, Free Rider Jumps, Free Rider HD, Snow Rider 3D, Shred Sauce, Shell Shockers, Deadshot.io, Crossy Road, and Granny. Games open inside the player, with an **Open directly** fallback for sites that block embedding.
 
-Cookie Clicker uses the requested third-party page at <https://cookieclickerunblocked.netlify.app/>. PolyTrack uses the unofficial browser build supplied for this project.
+PolyTrack uses the unofficial browser build supplied for this project.
 
 ## Deploy to Cloudflare Pages
 
