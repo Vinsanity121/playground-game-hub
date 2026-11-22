@@ -8,11 +8,22 @@ Sun Clicker is an idle game with ten celestial producers, research upgrades, mil
 
 Open `index.html` in a browser. No build step or dependencies are needed.
 
+## Deploy to Cloudflare Pages
+
+The GitHub Actions workflow deploys the site to Cloudflare Pages whenever changes are pushed to `main`. The site is static, so its build command is empty and its output directory is the repository root (`.`).
+
+One-time setup:
+
+1. In Cloudflare, create a Pages project named `playground-game-hub` (Direct Upload is fine; the workflow handles later deployments).
+2. Create a Cloudflare API token with **Cloudflare Pages: Edit** permission for the account.
+3. In the GitHub repository, add Actions secrets named `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
+4. Push to `main`. The workflow publishes the site to the `playground-game-hub` Pages project.
+
+The deployment config is in `wrangler.toml`.
+
 ## Work on it together
 
-1. Create a GitHub repository and add your friend as a collaborator.
-2. Both clone the repository. Before starting a task, run `git pull`.
-3. Work on separate branches for separate changes, then open a pull request for the other person to review.
-4. Merge the pull request and pull the latest changes before starting the next task.
-
-To publish with GitHub Pages, set the repository's Pages source to **GitHub Actions**. The included workflow deploys each update to `main`. Keep game files in their own folders as the project grows (for example, `games/your-game/`).
+1. Both clone the repository. Before starting a task, run `git pull`.
+2. Work on separate branches for separate changes, then open a pull request for the other person to review.
+3. Merge the pull request and pull the latest changes before starting the next task.
+4. Keep game files in their own folders as the project grows (for example, `games/your-game/`).
