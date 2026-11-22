@@ -1,7 +1,7 @@
 # Playground
 
-Play Doge Miner 2 or switch to PolyTrack. PolyTrack is loaded from the unofficial Google Sites page supplied for this project; use **Open directly** if its page cannot be embedded.
+Play Doge Miner 2, Cookie Clicker, and PolyTrack from the home screen. Cookie Clicker uses the DashNet web-game address because `cookieclicker.com` is the official landing page; its **Web (free)** link leads to the playable version. PolyTrack uses the unofficial build supplied for this project.
 
 ## Deploy
 
-The GitHub Pages workflow deploys `index.html`, `styles.css`, and `games.js` to <https://vinsanity121.github.io/playground-game-hub/>. Cloudflare deployment also runs on pushes to `main` and requires the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets.
+The GitHub Pages workflow deploys `index.html`, `styles.css`, and `games.js` to <https://vinsanity121.github.io/playground-game-hub/> when changes reach `main`.

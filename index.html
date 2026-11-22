@@ -4,33 +4,66 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#11131d" />
-    <meta name="description" content="Play Doge Miner 2 and PolyTrack in Playground." />
-    <title>Playground — Doge Miner &amp; PolyTrack</title>
-    <link rel="stylesheet" href="styles.css?v=11" />
-    <script src="games.js?v=1" defer></script>
+    <meta name="description" content="Play Doge Miner, Cookie Clicker, and PolyTrack in Playground." />
+    <title>Playground — Choose a game</title>
+    <link rel="stylesheet" href="styles.css?v=12" />
+    <script src="games.js?v=2" defer></script>
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="./" aria-label="Playground"><span>P</span> playground</a>
-      <nav class="game-tabs" role="tablist" aria-label="Games">
-        <button class="game-tab active" type="button" role="tab" aria-selected="true" data-game="doge">Doge Miner</button>
-        <button class="game-tab" type="button" role="tab" aria-selected="false" data-game="polytrack">PolyTrack · Unofficial</button>
+      <a class="brand" href="./" data-home-link aria-label="Playground home"><span>P</span> playground</a>
+      <nav class="game-tabs" role="tablist" aria-label="Pages and games">
+        <button class="game-tab active" type="button" role="tab" aria-selected="true" data-screen="home">Home</button>
+        <button class="game-tab" type="button" role="tab" aria-selected="false" data-screen="doge">Doge</button>
+        <button class="game-tab" type="button" role="tab" aria-selected="false" data-screen="cookie">Cookie</button>
+        <button class="game-tab" type="button" role="tab" aria-selected="false" data-screen="polytrack">PolyTrack</button>
       </nav>
-      <a class="direct-link" href="https://dogeminer2.com/play/" target="_blank" rel="noopener noreferrer">Open Doge Miner ↗</a>
+      <a class="direct-link" id="direct-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Open directly ↗</a>
     </header>
-    <main class="game-shell">
-      <div class="game-heading">
-        <p class="eyebrow">PLAYGROUND · BROWSER GAME</p>
-        <h1 id="game-name">Doge Miner 2</h1>
-      </div>
-      <section class="player" aria-label="Doge Miner 2 game">
-        <iframe
-          id="game-frame"
-          title="Doge Miner 2"
-          src="https://dogeminer2.com/play/"
-          allow="autoplay; fullscreen; gamepad"
-          allowfullscreen
-          referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <main>
+      <section class="home-screen" id="home-screen" aria-labelledby="home-title">
+        <div class="home-heading">
+          <p class="eyebrow">PLAYGROUND</p>
+          <h1 id="home-title">Choose a game</h1>
+        </div>
+        <div class="game-grid" aria-label="Games">
+          <button class="game-card doge-card" type="button" data-game="doge">
+            <span class="game-icon" aria-hidden="true">Ð</span>
+            <span class="game-card-title">Doge Miner 2</span>
+            <span class="game-card-note">Clicker</span>
+            <span class="card-arrow" aria-hidden="true">↗</span>
+          </button>
+          <button class="game-card cookie-card" type="button" data-game="cookie">
+            <span class="game-icon" aria-hidden="true">🍪</span>
+            <span class="game-card-title">Cookie Clicker</span>
+            <span class="game-card-note">Idle game</span>
+            <span class="card-arrow" aria-hidden="true">↗</span>
+          </button>
+          <button class="game-card polytrack-card" type="button" data-game="polytrack">
+            <span class="game-icon" aria-hidden="true">🏁</span>
+            <span class="game-card-title">PolyTrack</span>
+            <span class="game-card-note">Unofficial build</span>
+            <span class="card-arrow" aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="game-shell hidden" id="player-screen" aria-label="Game player">
+        <div class="game-heading">
+          <div>
+            <p class="eyebrow" id="game-type">BROWSER GAME</p>
+            <h1 id="game-name">Game</h1>
+          </div>
+        </div>
+        <div class="player" id="game-player">
+          <iframe
+            id="game-frame"
+            title="Game player"
+            src="about:blank"
+            allow="autoplay; fullscreen; gamepad"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
       </section>
     </main>
   </body>
