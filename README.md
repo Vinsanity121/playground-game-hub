@@ -1,6 +1,6 @@
 # Playground
 
-A lightweight game hub built with plain HTML, CSS, and JavaScript. It includes original games and a link to Coolmath Games. Coolmath's game player refuses to run when nested inside another website, so the Coolmath tab opens the site in a new tab instead of showing a broken game frame.
+A lightweight game hub built with plain HTML, CSS, and JavaScript. It currently includes Catch the Spark, Orbit Dodge, and Memory Flip.
 
 ## Run it
 
