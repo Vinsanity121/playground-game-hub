@@ -1,6 +1,6 @@
 # Playground
 
-A lightweight game hub built with plain HTML, CSS, and JavaScript. It includes one original mini-game and an embedded Coolmath Games page. Coolmath may block loading inside another site; the iframe follows the browser's normal security rules and does not proxy its content.
+A lightweight game hub built with plain HTML, CSS, and JavaScript. It includes original games and a link to Coolmath Games. Coolmath's game player refuses to run when nested inside another website, so the Coolmath tab opens the site in a new tab instead of showing a broken game frame.
 
 ## Run it
 
