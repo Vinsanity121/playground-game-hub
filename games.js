@@ -10,7 +10,7 @@ const gameOptions = {
   cookie: {
     title: 'Cookie Clicker',
     sourceLabel: 'THIRD-PARTY PAGE',
-    url: 'https://cookieclickernew.com/',
+    url: 'https://cookieclickerunblocked.netlify.app/',
     icon: '🍪',
     note: 'Idle game',
     cardClass: 'cookie-card',
