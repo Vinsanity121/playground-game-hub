@@ -22,6 +22,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+      - name: Check required secrets
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          SITE_ACCESS_CODE: ${{ secrets.SITE_ACCESS_CODE }}
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+        run: |
+          for name in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID SITE_ACCESS_CODE SESSION_SECRET; do
+            if [ -z "${!name:-}" ]; then
+              echo "::error::$name is missing. Add it under repository Settings > Secrets and variables > Actions."
+              exit 1
+            fi
+          done
       - name: Create Pages project if needed
         continue-on-error: true
         uses: cloudflare/wrangler-action@v4
@@ -29,6 +42,19 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages project create goodgames-playzone --production-branch=main
+          workingDirectory: goodgames
+      - name: Prepare runtime secrets
+        env:
+          SITE_ACCESS_CODE: ${{ secrets.SITE_ACCESS_CODE }}
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+        run: |
+          node -e 'const fs = require("node:fs"); const path = require("node:path"); const file = path.join(process.env.RUNNER_TEMP, "goodgames-pages-secrets.json"); fs.writeFileSync(file, JSON.stringify({ SITE_ACCESS_CODE: process.env.SITE_ACCESS_CODE, SESSION_SECRET: process.env.SESSION_SECRET }), { mode: 0o600 });'
+      - name: Upload runtime secrets
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages secret bulk "$RUNNER_TEMP/goodgames-pages-secrets.json" --project-name=goodgames-playzone
           workingDirectory: goodgames
       - name: Deploy site
         id: deploy
