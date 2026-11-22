@@ -163,6 +163,7 @@ body{margin:0;background:var(--bg);color:#f8f8fc;font-family:'DM Sans',sans-seri
 .sun-panel-tab:hover{color:#fff}.sun-panel-tab.active{background:#292c40;color:#fff}
 .sun-panel-tab>span{display:inline-grid;min-width:15px;height:15px;margin-left:3px;place-items:center;border-radius:50%;background:#41445d;color:#d9f377;font:500 8px 'DM Mono',monospace}
 .sun-panel-tab #sun-research-ready{position:absolute;top:6px;right:6px;width:6px;min-width:6px;height:6px;padding:0;background:#d9f377;box-shadow:0 0 7px #d9f377}
+#sun-research-ready[hidden]{display:none!important}
 .sun-panel-content{padding:16px}
 .panel-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:12px}
 .panel-heading .eyebrow{margin-bottom:4px;color:#9d90e8;font-size:8px}
