@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'goodgames/**'
+      - '.github/workflows/goodgames-deploy.yml'
 
 permissions:
   contents: read
