@@ -1,4 +1,4 @@
-# Good Games — Cloudflare Pages starter
+# Good Games — Cloudflare Pages
 
 A static game shelf protected by a Cloudflare Pages Function. The access code and session signing key are runtime secrets; neither belongs in this repository.
 
@@ -6,26 +6,23 @@ A static game shelf protected by a Cloudflare Pages Function. The access code an
 
 PolyTrack is listed with a link to the official game by Kodub. This starter does not copy or redistribute a third-party mirror. The official game opens in a new tab.
 
-## Configure private access
+## Configure deployment and private access
 
-In Cloudflare, create a Pages project and add these **Production** secrets under **Settings → Variables and Secrets**:
+In the GitHub repository, open **Settings → Secrets and variables → Actions** and add these repository secrets:
 
-- `SITE_ACCESS_CODE`: the shared code you chose. It is checked only in the Pages Function and is not shipped to visitors.
-- `SESSION_SECRET`: a separate random secret of at least 32 characters used to sign 12-hour, HttpOnly, Secure, SameSite cookies.
+- `CLOUDFLARE_API_TOKEN`: a Cloudflare API token with Cloudflare Pages edit permission.
+- `CLOUDFLARE_ACCOUNT_ID`: the account ID shown in your Cloudflare dashboard.
+- `SITE_ACCESS_CODE`: your shared access code.
+- `SESSION_SECRET`: a separate random secret of at least 32 characters for signing 12-hour login sessions.
 
-For local development, copy `.dev.vars.example` to `.dev.vars`, replace the placeholders, and keep `.dev.vars` out of Git.
+The deployment workflow creates the Pages project, transfers the two runtime secrets to Cloudflare over Wrangler, and deploys the site. Secret values are not written into Git. The site stays locked until all four secrets are set. After adding them, rerun the latest failed **Deploy Good Games to Cloudflare Pages** workflow.
 
-The shared code currently chosen is four digits. That is convenient for invited friends but weak against guessing on a public URL. Use a longer passphrase before relying on it for anything private or sensitive, and configure Cloudflare rate limiting for `/auth`. Cloudflare's built-in Worker rate limits are approximate and regional, so they are a speed bump, not strong protection against a determined attacker.
+The selected access code is only four digits, which is easy to guess on a public URL. Use a longer passphrase before relying on it for anything sensitive. For local development, copy `.dev.vars.example` to `.dev.vars`, replace the placeholders, and keep `.dev.vars` out of Git.
 
-The Pages Function must run for every route so static files cannot bypass the gate. In Cloudflare Pages, set **Fail open / closed** to **Fail closed**. Pages Functions requests count against the Workers Free plan request limit.
+## Site address
 
-## Deploy
-
-This project is a plain static site with Pages Functions in `functions/`. In Cloudflare, create a Pages project named `goodgames-playzone`, upload this folder with Wrangler, or connect a GitHub repository and set the build command to empty and the output directory to `.`. Add the runtime secrets above before the first deployment.
-
-For the parent repository's deploy workflow, add GitHub Actions repository secrets named `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. The token needs Cloudflare Pages edit access. After the project is created, add `SITE_ACCESS_CODE` and `SESSION_SECRET` as **Production** secrets in the Pages project's **Settings → Variables and Secrets**. The site stays locked until both runtime secrets exist.\n\nAfter the project is deployed, attach a domain from the Pages project's **Custom domains** settings. A `.com` name must be available and registered before it can be attached. The requested `goodgames.com` already belongs to an active printing business. A possible alternative is `goodgamesplayzone.com`; check its live availability and price in Cloudflare before buying. Until then, use the project’s `pages.dev` address.
+The intended Pages address is `https://goodgames-playzone.pages.dev`. The exact requested `goodgames.com` already belongs to an active printing business. A possible alternative is `goodgamesplayzone.com`; check its live availability and price in Cloudflare before buying. Attach a purchased domain through the Pages project's **Custom domains** settings.
 
 ## Add another game
 
 Add a new card in `index.html` and link to a game you have permission to distribute or embed. For a GitHub project, check the license and preserve its copyright and license notices before copying its files into this site.
-
