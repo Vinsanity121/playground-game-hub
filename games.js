@@ -1,3 +1,34 @@
+const ACCESS_CODE = '1311';
+const ACCESS_SESSION_KEY = 'playground-access-unlocked';
+
+const unlockScreen = document.querySelector('#unlock-screen');
+const siteContent = document.querySelector('#site-content');
+const unlockForm = document.querySelector('#unlock-form');
+const accessCodeInput = document.querySelector('#access-code');
+const unlockError = document.querySelector('#unlock-error');
+
+function showSite() {
+  unlockScreen.hidden = true;
+  siteContent.hidden = false;
+}
+
+if (sessionStorage.getItem(ACCESS_SESSION_KEY) === 'true') {
+  showSite();
+}
+
+unlockForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  if (accessCodeInput.value === ACCESS_CODE) {
+    sessionStorage.setItem(ACCESS_SESSION_KEY, 'true');
+    unlockError.hidden = true;
+    showSite();
+  } else {
+    unlockError.hidden = false;
+    accessCodeInput.value = '';
+    accessCodeInput.focus();
+  }
+});
+
 const gameOptions = {
   doge: {
     title: 'Doge Miner 2',

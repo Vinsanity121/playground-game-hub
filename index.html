@@ -6,10 +6,34 @@
     <meta name="theme-color" content="#11131d" />
     <meta name="description" content="Choose a game and play it in Playground." />
     <title>Playground — Choose a game</title>
-    <link rel="stylesheet" href="styles.css?v=13" />
-    <script src="games.js?v=8" defer></script>
+    <link rel="stylesheet" href="styles.css?v=14" />
+    <script src="games.js?v=9" defer></script>
   </head>
   <body>
+    <section class="unlock-screen" id="unlock-screen" aria-labelledby="unlock-title">
+      <form class="unlock-card" id="unlock-form">
+        <span class="unlock-brand" aria-hidden="true">P</span>
+        <p class="eyebrow">PLAYGROUND</p>
+        <h1 id="unlock-title">Enter code</h1>
+        <label for="access-code">4-digit access code</label>
+        <div class="unlock-controls">
+          <input
+            id="access-code"
+            name="access-code"
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]{4}"
+            minlength="4"
+            maxlength="4"
+            autocomplete="off"
+            required
+            aria-describedby="unlock-error" />
+          <button type="submit">Unlock</button>
+        </div>
+        <p class="unlock-error" id="unlock-error" role="alert" aria-live="polite" hidden>That code did not work. Try again.</p>
+      </form>
+    </section>
+    <div id="site-content" hidden>
     <header class="topbar">
       <a class="brand" href="./" data-home-link aria-label="Playground home"><span>P</span> playground</a>
       <nav class="game-tabs" role="tablist" aria-label="Pages and games">
@@ -23,6 +47,7 @@
           <p class="eyebrow">PLAYGROUND</p>
           <h1 id="home-title">Choose a game</h1>
         </div>
+        <p class="home-message">Happy Gaming :)</p>
         <div class="game-grid" id="game-grid" aria-label="Games"></div>
       </section>
 
@@ -44,5 +69,6 @@
         </div>
       </section>
     </main>
+    </div>
   </body>
 </html>
