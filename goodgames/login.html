@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#090b12" />
+    <title>Private access — Good Games</title>
+    <style>
+      *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 25%,#25223d,#090b12 65%);color:#f5f4ef;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}.card{width:min(430px,90vw);padding:39px;border:1px solid #333342;border-radius:15px;background:#11141feF;box-shadow:0 25px 90px #0008}.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:14px}.mark{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:#d8f575;color:#13151a;font-size:11px;transform:rotate(-5deg)}.eyebrow{margin:35px 0 10px;color:#a898ff;font:500 9px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:1px}h1{margin:0;font-size:35px;line-height:1.1;letter-spacing:-1.8px}p{margin:12px 0 23px;color:#a5aabd;font-size:12px;line-height:1.7}label{display:block;margin:0 0 7px;color:#dedee7;font-size:10px;font-weight:700}input{width:100%;height:47px;padding:0 13px;border:1px solid #36394a;border-radius:7px;outline:none;background:#0c0f18;color:white;font:500 14px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:2px}input:focus{border-color:#d8f575;box-shadow:0 0 0 3px #d8f57520}button{width:100%;height:44px;margin-top:12px;border:0;border-radius:7px;background:#d8f575;color:#12151a;font:800 11px system-ui;cursor:pointer}button:hover{background:#e6ff97}.error{display:none;margin:13px 0 0;color:#ff9eb8;font-size:10px}.error.show{display:block}.hint{margin:20px 0 0;padding-top:16px;border-top:1px solid #292d3a;color:#797f90;font:400 8px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.4px}
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <div class="logo"><span class="mark">GG</span><span>good games</span></div>
+      <p class="eyebrow">PRIVATE GAME ROOM</p>
+      <h1>Good to see you.</h1>
+      <p>Enter the access code to unlock the game shelf.</p>
+      <form action="/auth" method="post" autocomplete="off">
+        <label for="code">ACCESS CODE</label>
+        <input id="code" name="code" type="password" inputmode="numeric" required maxlength="64" autocomplete="one-time-code" aria-describedby="error" />
+        <button type="submit">Unlock the games <span aria-hidden="true">↗</span></button>
+        <p class="error" id="error" role="alert">That code didn’t work. Try again.</p>
+      </form>
+      <p class="hint">ACCESS IS SHARED BY INVITATION</p>
+    </main>
+    <script>
+      if (new URLSearchParams(location.search).has('error')) document.querySelector('#error').classList.add('show');
+      document.querySelector('form').action = `/auth${location.search}`;
+      document.querySelector('#code').focus();
+    </script>
+  </body>
+</html>
+
