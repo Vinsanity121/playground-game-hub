@@ -4,21 +4,80 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#11131d" />
-    <title>Playground</title>
-    <link rel="stylesheet" href="styles.css?v=4" />
-    <script src="app.js?v=3" defer></script>
+    <meta name="description" content="Play small games made by the Playground team." />
+    <title>Playground — Pick a game</title>
+    <link rel="stylesheet" href="styles.css?v=5" />
+    <script src="app.js?v=4" defer></script>
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="#" aria-label="Playground"><span>P</span> playground</a>
-      <nav aria-label="Games">
-        <button class="tab active" data-view="mine">Catch Spark</button>
-        <button class="tab" data-view="orbit">Orbit Dodge</button>
-        <button class="tab" data-view="memory">Memory Flip</button>
+      <a class="brand" href="#home" aria-label="Playground home"><span>P</span> playground</a>
+      <nav aria-label="Pages">
+        <button class="tab active" data-view="home" aria-pressed="true">Home</button>
+        <button class="tab" data-view="mine" aria-pressed="false">Catch Spark</button>
+        <button class="tab" data-view="orbit" aria-pressed="false">Orbit Dodge</button>
+        <button class="tab" data-view="memory" aria-pressed="false">Memory Flip</button>
       </nav>
     </header>
     <main>
-      <section class="view" id="mine-view">
+      <section class="view home-view" id="home-view">
+        <div class="home-hero">
+          <div class="hero-copy">
+            <p class="eyebrow">PLAYGROUND · ORIGINAL GAMES</p>
+            <h1>Pick a game.<br /><span>Make it count.</span></h1>
+            <button class="play-button" type="button" data-open-view="mine">Play now <span aria-hidden="true">↗</span></button>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="hero-orbit orbit-ring-one"></div>
+            <div class="hero-orbit orbit-ring-two"></div>
+            <div class="hero-orbit orbit-ring-three"></div>
+            <div class="hero-planet"></div>
+            <span class="hero-spark">✦</span>
+            <span class="hero-star star-one">✧</span>
+            <span class="hero-star star-two">✦</span>
+            <span class="hero-star star-three">✧</span>
+          </div>
+        </div>
+
+        <div class="collection-heading">
+          <p class="eyebrow">THE COLLECTION</p>
+          <span>03 GAMES</span>
+        </div>
+        <div class="game-grid">
+          <article class="home-card">
+            <button class="card-art art-spark" type="button" data-open-view="mine" aria-label="Play Catch the Spark">
+              <span class="art-label">01 · QUICK PLAY</span>
+              <span class="spark-art">✦</span>
+              <span class="art-play" aria-hidden="true">↗</span>
+            </button>
+            <div class="card-caption"><h2>Catch the Spark</h2><span>30 SEC</span></div>
+          </article>
+          <article class="home-card">
+            <button class="card-art art-orbit" type="button" data-open-view="orbit" aria-label="Play Orbit Dodge">
+              <span class="art-label">02 · ARCADE</span>
+              <span class="orbit-ship-art">▲</span>
+              <span class="asteroid asteroid-one"></span>
+              <span class="asteroid asteroid-two"></span>
+              <span class="asteroid asteroid-three"></span>
+              <span class="art-play" aria-hidden="true">↗</span>
+            </button>
+            <div class="card-caption"><h2>Orbit Dodge</h2><span>3 LIVES</span></div>
+          </article>
+          <article class="home-card">
+            <button class="card-art art-memory" type="button" data-open-view="memory" aria-label="Play Memory Flip">
+              <span class="art-label">03 · PUZZLE</span>
+              <span class="memory-tile tile-one">✦</span>
+              <span class="memory-tile tile-two">💎</span>
+              <span class="memory-tile tile-three">✦</span>
+              <span class="memory-tile tile-four">?</span>
+              <span class="art-play" aria-hidden="true">↗</span>
+            </button>
+            <div class="card-caption"><h2>Memory Flip</h2><span>8 PAIRS</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view hidden" id="mine-view">
         <div class="title-row"><div><p class="eyebrow">QUICK PLAY · 30 SEC</p><h1>Catch the spark</h1></div><button class="play-button" id="start-game">Play</button></div>
         <div class="game-stage" id="game-stage" aria-label="Catch the spark game area">
           <div class="stage-top"><span><i class="stage-dot"></i> <span id="game-status">READY</span></span><span>BEST <b id="best-score">0</b></span></div>
