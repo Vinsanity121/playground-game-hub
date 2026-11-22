@@ -23,7 +23,7 @@ The Pages Function must run for every route so static files cannot bypass the ga
 
 This project is a plain static site with Pages Functions in `functions/`. In Cloudflare, create a Pages project named `goodgames-playzone`, upload this folder with Wrangler, or connect a GitHub repository and set the build command to empty and the output directory to `.`. Add the runtime secrets above before the first deployment.
 
-After the project is deployed, attach a domain from the Pages project's **Custom domains** settings. A `.com` name must be available and registered before it can be attached. The requested `goodgames.com` already belongs to an active printing business. A possible alternative is `goodgamesplayzone.com`; check its live availability and price in Cloudflare before buying. Until then, use the project’s `pages.dev` address.
+For the parent repository's deploy workflow, add GitHub Actions repository secrets named `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. The token needs Cloudflare Pages edit access. After the project is created, add `SITE_ACCESS_CODE` and `SESSION_SECRET` as **Production** secrets in the Pages project's **Settings → Variables and Secrets**. The site stays locked until both runtime secrets exist.\n\nAfter the project is deployed, attach a domain from the Pages project's **Custom domains** settings. A `.com` name must be available and registered before it can be attached. The requested `goodgames.com` already belongs to an active printing business. A possible alternative is `goodgamesplayzone.com`; check its live availability and price in Cloudflare before buying. Until then, use the project’s `pages.dev` address.
 
 ## Add another game
 
