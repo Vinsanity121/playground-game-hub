@@ -1,29 +1,23 @@
 # Playground
 
-A lightweight game hub built with plain HTML, CSS, and JavaScript. It includes Catch the Spark, Orbit Dodge, Memory Flip, and Sun Clicker.
+A small game hub built with HTML, CSS, and JavaScript. It includes Catch the Spark, Orbit Dodge, Memory Flip, and Energy Collector.
 
-Sun Clicker is an idle game with ten celestial producers, research upgrades, milestones, offline earnings, random solar flares, and a Big Bang prestige reset. Progress saves in the browser.
+Energy Collector is an idle energy game with 20 power stations, research, achievements, random Energy Surges, four Grid Lab minigames, 24-hour Core Crystals, offline earnings, and Legacy Watt reboots. Progress saves in the browser. Set the operator name to `ignitethegrid` to open the public test tools.
 
-## Run it
+## Run locally
 
 Open `index.html` in a browser. No build step or dependencies are needed.
 
-## Deploy to Cloudflare Pages
+## Deploy
 
-The GitHub Actions workflow deploys the site to Cloudflare Pages whenever changes are pushed to `main`. The site is static, so its build command is empty and its output directory is the repository root (`.`).
+The GitHub Actions workflow deploys the public game hub to Cloudflare Pages when changes reach `main`. The Pages project is `playground-game-hub`; its output directory is the repository root (`.`).
 
-One-time setup:
+The workflow requires the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` Actions secrets in the repository. Deployment settings are in `wrangler.toml` and `.github/workflows/deploy.yml`.
 
-1. In Cloudflare, create a Pages project named `playground-game-hub` (Direct Upload is fine; the workflow handles later deployments).
-2. Create a Cloudflare API token with **Cloudflare Pages: Edit** permission for the account.
-3. In the GitHub repository, add Actions secrets named `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
-4. Push to `main`. The workflow publishes the site to the `playground-game-hub` Pages project.
+## Work together
 
-The deployment config is in `wrangler.toml`.
+1. Both contributors clone the repository and run `git pull` before starting work.
+2. Use a separate branch for each change and open a pull request for review.
+3. Merge the pull request, then pull the latest `main` before starting another task.
 
-## Work on it together
-
-1. Both clone the repository. Before starting a task, run `git pull`.
-2. Work on separate branches for separate changes, then open a pull request for the other person to review.
-3. Merge the pull request and pull the latest changes before starting the next task.
-4. Keep game files in their own folders as the project grows (for example, `games/your-game/`).
+Keep new games in their own folders as the collection grows (for example, `games/your-game/`).
