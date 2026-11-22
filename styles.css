@@ -14,7 +14,7 @@ body{margin:0;background:var(--bg);color:#f8f8fc;font-family:'DM Sans',sans-seri
 .hidden{display:none!important}
 .title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:19px}
 .eyebrow{font:500 9px 'DM Mono',monospace;letter-spacing:1.3px;color:#aaaabc;margin:0 0 7px}
-.title-row h1,.coolmath-card h1{margin:0;font:600 32px 'Space Grotesk',sans-serif;letter-spacing:-1.5px}
+.title-row h1{margin:0;font:600 32px 'Space Grotesk',sans-serif;letter-spacing:-1.5px}
 .play-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;color:#151623;background:var(--lime);padding:12px 25px;text-decoration:none}
 .play-button:hover{background:#e7ff99}
 .game-stage{height:min(590px,68vh);min-height:360px;position:relative;overflow:hidden;border-radius:11px;background-color:#f2f0ff;background-image:radial-gradient(#dcd7ff 1px,transparent 1px);background-size:17px 17px;color:#191a29}
@@ -39,7 +39,20 @@ body{margin:0;background:var(--bg);color:#f8f8fc;font-family:'DM Sans',sans-seri
 .touch-controls{display:none;justify-content:center;gap:14px;margin-top:14px}
 .touch-controls button{width:76px;height:52px;border:1px solid #363950;border-radius:10px;background:#202337;color:white;font-size:23px;touch-action:none}
 .touch-controls button:active{background:var(--purple)}
-.coolmath-card{min-height:440px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:42px;background:#1a1d2b;border:1px solid #2b2e40;border-radius:13px;text-align:center}
-.coolmath-mark{width:62px;height:62px;display:grid;place-items:center;border-radius:18px;background:#262a3b;color:var(--lime);font:700 30px 'Space Grotesk',sans-serif}
-.coolmath-card p{max-width:420px;color:#a8aaba;font-size:13px;line-height:1.6;margin:0 0 4px}
-@media(max-width:700px){.topbar{padding:0 4vw;min-height:64px;flex-wrap:wrap;justify-content:center;gap:9px;padding-top:8px;padding-bottom:8px}.brand{font-size:15px}.topbar nav{width:100%;justify-content:center;gap:4px}.tab{padding:9px 10px;font-size:11px}.view{margin:34px auto}.title-row h1,.coolmath-card h1{font-size:28px}.game-stage,.orbit-stage{height:68vh;min-height:350px}.touch-controls{display:flex}.coolmath-card{min-height:350px;padding:30px 20px}}
+.memory-hud{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 2px 14px;color:#aeb0c0;font:500 10px 'DM Mono',monospace;letter-spacing:.3px}
+.memory-hud b{color:var(--lime);font-size:13px}
+.memory-wrap{position:relative;padding:20px;border:1px solid #2c3044;border-radius:12px;background:#1a1d2b}
+.memory-board{width:min(100%,560px);margin:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.memory-card{position:relative;aspect-ratio:1;border:0;padding:0;border-radius:12px;background:transparent;perspective:700px;cursor:pointer}
+.memory-card span{position:absolute;inset:0;border-radius:12px;display:grid;place-items:center;backface-visibility:hidden;transition:transform .32s,background .2s,color .2s,border-color .2s}
+.memory-back{background:#292d43;border:1px solid #3a3e57;color:#aa9cff;font-size:clamp(17px,4vw,29px)}
+.memory-front{transform:rotateY(180deg);background:#f5f3ff;border:2px solid transparent;font-size:clamp(22px,5vw,38px)}
+.memory-card.flipped .memory-back,.memory-card.matched .memory-back{transform:rotateY(180deg)}
+.memory-card.flipped .memory-front,.memory-card.matched .memory-front{transform:rotateY(360deg)}
+.memory-card.matched .memory-front{background:#f0f8d6;border-color:var(--lime)}
+.memory-card:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+.memory-message{position:absolute;inset:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;border-radius:10px;background:#121522d9;text-align:center;backdrop-filter:blur(3px)}
+.memory-message[hidden]{display:none}
+.memory-message strong{font:600 19px 'Space Grotesk',sans-serif}
+.memory-message span{color:#b0b2c2;font-size:11px}
+@media(max-width:700px){.topbar{padding:0 4vw;min-height:64px;flex-wrap:wrap;justify-content:center;gap:9px;padding-top:8px;padding-bottom:8px}.brand{font-size:15px}.topbar nav{width:100%;justify-content:center;gap:4px}.tab{padding:9px 10px;font-size:11px}.view{margin:34px auto}.title-row h1{font-size:28px}.game-stage,.orbit-stage{height:68vh;min-height:350px}.touch-controls{display:flex}.memory-hud{flex-wrap:wrap;justify-content:center;gap:10px 18px}.memory-wrap{padding:12px}.memory-board{gap:8px}.memory-card span,.memory-message{border-radius:8px}.memory-message{inset:12px}}
