@@ -22,6 +22,14 @@ h1{margin:0;color:#f6f3e9;font-size:clamp(30px,5vw,46px);font-weight:650;letter-
 .doge-card{background:linear-gradient(145deg,#b57745,#543d4f 62%,#262743)}
 .cookie-card{background:linear-gradient(145deg,#b77735,#634129 58%,#302238)}
 .polytrack-card{background:linear-gradient(145deg,#399b9c,#285b71 55%,#242747)}
+.freerider-jumps-card{background:linear-gradient(145deg,#5b8c42,#315a4e 58%,#242843)}
+.freerider-hd-card{background:linear-gradient(145deg,#6582cb,#3d4e89 58%,#24263f)}
+.snowrider-card{background:linear-gradient(145deg,#76b5cd,#43748f 58%,#252945)}
+.shredsauce-card{background:linear-gradient(145deg,#ad557e,#6c416d 58%,#282540)}
+.shellshock-card{background:linear-gradient(145deg,#87a640,#556b38 58%,#2a2c39)}
+.deadshot-card{background:linear-gradient(145deg,#c76543,#784449 58%,#25243e)}
+.crossy-card{background:linear-gradient(145deg,#5b9c78,#39695e 58%,#272944)}
+.granny-card{background:linear-gradient(145deg,#766195,#494168 58%,#202438)}
 .game-icon{position:absolute;right:22px;top:19px;width:84px;height:84px;display:grid;place-items:center;border:1px solid #ffffff4b;border-radius:50%;background:#11131d38;color:#fff0bf;font-size:50px;text-shadow:0 5px 18px #15132388}
 .cookie-card .game-icon{font-size:45px}
 .polytrack-card .game-icon{font-size:42px}
@@ -33,5 +41,6 @@ h1{margin:0;color:#f6f3e9;font-size:clamp(30px,5vw,46px);font-weight:650;letter-
 .game-heading h1{font-size:clamp(23px,3vw,30px);letter-spacing:-1px}
 .player{height:calc(100vh - 150px);min-height:480px;overflow:hidden;border:1px solid #ffffff20;border-radius:13px;background:#fff;box-shadow:0 18px 48px #06081080}
 .player iframe{display:block;width:100%;height:100%;border:0;background:#fff}
-@media(max-width:850px){.topbar{grid-template-columns:auto 1fr;gap:8px 12px;height:auto;min-height:66px;padding:8px 14px}.brand{grid-column:1;grid-row:1}.direct-link{grid-column:2;grid-row:1}.game-tabs{grid-column:1/-1;grid-row:2;justify-self:stretch;justify-content:center}.game-grid{grid-template-columns:1fr;gap:10px}.game-card{min-height:150px}.home-screen{margin:48px auto 44px}}
+@media(max-width:850px){.topbar{grid-template-columns:auto 1fr;gap:8px 12px;height:auto;min-height:66px;padding:8px 14px}.brand{grid-column:1;grid-row:1}.direct-link{grid-column:2;grid-row:1}.game-tabs{grid-column:1/-1;grid-row:2;justify-self:stretch;justify-content:center}.game-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.game-card{min-height:175px}.home-screen{margin:48px auto 44px}}
 @media(max-width:650px){.topbar{padding:8px 10px}.brand{font-size:14px}.game-tabs{gap:2px}.game-tab{min-height:29px;padding:0 9px;font-size:10px}.direct-link{padding:8px 10px;font-size:10px}.home-screen{width:92vw;margin:42px auto 34px}.home-heading{margin-bottom:15px}h1{font-size:32px}.game-card{min-height:136px;padding:16px}.game-icon{right:15px;top:14px;width:65px;height:65px;font-size:39px}.cookie-card .game-icon{font-size:35px}.polytrack-card .game-icon{font-size:33px}.game-card-title{font-size:17px}.game-shell{width:100%;margin:0 auto}.game-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0;padding:11px 15px}.game-heading .eyebrow{margin:0;font-size:8px}.game-heading h1{font-size:18px}.player{height:calc(100dvh - 148px);min-height:420px;border-right:0;border-left:0;border-radius:0}}
+@media(max-width:520px){.game-grid{grid-template-columns:1fr;gap:10px}.game-card{min-height:128px}}

@@ -1,6 +1,8 @@
 # Playground
 
-Play Doge Miner 2, Cookie Clicker, and PolyTrack from the home screen. Cookie Clicker uses the DashNet web-game address because `cookieclicker.com` is the official landing page; its **Web (free)** link leads to the playable version. PolyTrack uses the unofficial build supplied for this project.
+The home screen links to Doge Miner 2, Cookie Clicker, PolyTrack, Free Rider Jumps, Free Rider HD, Snow Rider 3D, Shred Sauce, Shell Shockers, Deadshot.io, Crossy Road, and Granny. Games open inside the player, with an **Open directly** fallback for sites that block embedding.
+
+Cookie Clicker uses the requested `cookieclicker.eu` page. PolyTrack uses the unofficial browser build supplied for this project.
 
 ## Deploy
 
