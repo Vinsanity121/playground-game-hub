@@ -1,6 +1,8 @@
 # Playground
 
-A lightweight game hub built with plain HTML, CSS, and JavaScript. It currently includes Catch the Spark, Orbit Dodge, and Memory Flip.
+A lightweight game hub built with plain HTML, CSS, and JavaScript. It includes Catch the Spark, Orbit Dodge, Memory Flip, and Sun Clicker.
+
+Sun Clicker is an idle game with ten celestial producers, research upgrades, milestones, offline earnings, random solar flares, and a Big Bang prestige reset. Progress saves in the browser.
 
 ## Run it
 
