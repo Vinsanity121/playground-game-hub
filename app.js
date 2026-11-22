@@ -1,16 +1,31 @@
 const tabs = document.querySelectorAll('.tab');
 const views = {
+  home: document.querySelector('#home-view'),
   mine: document.querySelector('#mine-view'),
   orbit: document.querySelector('#orbit-view'),
   memory: document.querySelector('#memory-view'),
 };
 
-tabs.forEach((tab) => tab.addEventListener('click', () => {
-  tabs.forEach((item) => item.classList.toggle('active', item === tab));
-  Object.entries(views).forEach(([name, view]) => view.classList.toggle('hidden', name !== tab.dataset.view));
-  if (tab.dataset.view === 'orbit') sizeOrbitCanvas();
-  if (tab.dataset.view === 'memory') sizeMemoryBoard();
-}));
+function showView(name) {
+  tabs.forEach((tab) => {
+    const active = tab.dataset.view === name;
+    tab.classList.toggle('active', active);
+    tab.setAttribute('aria-pressed', String(active));
+  });
+  Object.entries(views).forEach(([viewName, view]) => view.classList.toggle('hidden', viewName !== name));
+  if (name === 'orbit') sizeOrbitCanvas();
+  if (name === 'memory') sizeMemoryBoard();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+tabs.forEach((tab) => tab.addEventListener('click', () => showView(tab.dataset.view)));
+document.querySelector('.brand').addEventListener('click', (event) => {
+  event.preventDefault();
+  showView('home');
+});
+document.querySelectorAll('[data-open-view]').forEach((button) => {
+  button.addEventListener('click', () => showView(button.dataset.openView));
+});
 
 // Catch the Spark
 const startButton = document.querySelector('#start-game');
