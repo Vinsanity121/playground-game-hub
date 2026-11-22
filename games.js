@@ -9,8 +9,8 @@ const gameOptions = {
   },
   cookie: {
     title: 'Cookie Clicker',
-    sourceLabel: 'BROWSER GAME',
-    url: 'https://cookieclicker.eu/cookieclicker/',
+    sourceLabel: 'THIRD-PARTY PAGE',
+    url: 'https://cookieclickernew.com/',
     icon: '🍪',
     note: 'Idle game',
     cardClass: 'cookie-card',
