@@ -31,7 +31,7 @@ jobs:
       - name: Prepare public game hub only
         run: |
           mkdir -p "$RUNNER_TEMP/game-hub-site"
-          cp index.html styles.css app.js energy.js "$RUNNER_TEMP/game-hub-site/"
+          cp index.html styles.css "$RUNNER_TEMP/game-hub-site/"
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v4
         with:
