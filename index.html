@@ -4,22 +4,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#11131d" />
-    <meta name="description" content="Play Doge Miner 2 in Playground." />
-    <title>Doge Miner 2 — Playground</title>
-    <link rel="stylesheet" href="styles.css?v=10" />
+    <meta name="description" content="Play Doge Miner 2 and PolyTrack in Playground." />
+    <title>Playground — Doge Miner &amp; PolyTrack</title>
+    <link rel="stylesheet" href="styles.css?v=11" />
+    <script src="games.js?v=1" defer></script>
   </head>
   <body>
     <header class="topbar">
       <a class="brand" href="./" aria-label="Playground"><span>P</span> playground</a>
-      <a class="direct-link" href="https://dogeminer2.com/play/" target="_blank" rel="noopener noreferrer">Open directly ↗</a>
+      <nav class="game-tabs" role="tablist" aria-label="Games">
+        <button class="game-tab active" type="button" role="tab" aria-selected="true" data-game="doge">Doge Miner</button>
+        <button class="game-tab" type="button" role="tab" aria-selected="false" data-game="polytrack">PolyTrack · Unofficial</button>
+      </nav>
+      <a class="direct-link" href="https://dogeminer2.com/play/" target="_blank" rel="noopener noreferrer">Open Doge Miner ↗</a>
     </header>
     <main class="game-shell">
       <div class="game-heading">
         <p class="eyebrow">PLAYGROUND · BROWSER GAME</p>
-        <h1>Doge Miner 2</h1>
+        <h1 id="game-name">Doge Miner 2</h1>
       </div>
       <section class="player" aria-label="Doge Miner 2 game">
         <iframe
+          id="game-frame"
           title="Doge Miner 2"
           src="https://dogeminer2.com/play/"
           allow="autoplay; fullscreen; gamepad"
