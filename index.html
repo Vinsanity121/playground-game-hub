@@ -12,8 +12,9 @@
     <header class="topbar">
       <a class="brand" href="#" aria-label="Playground"><span>P</span> playground</a>
       <nav aria-label="Games">
-        <button class="tab active" data-view="mine">Our game</button>
-        <button class="tab" data-view="coolmath">Coolmath ↗</button>
+        <button class="tab active" data-view="mine">Catch Spark</button>
+        <button class="tab" data-view="orbit">Orbit Dodge</button>
+        <button class="tab" data-view="coolmath">Coolmath</button>
       </nav>
     </header>
     <main>
@@ -26,8 +27,24 @@
           <div class="stage-bottom"><span>SCORE <b id="score">0</b></span><span id="timer">00:30</span></div>
         </div>
       </section>
+
+      <section class="view hidden" id="orbit-view">
+        <div class="title-row"><div><p class="eyebrow">ARCADE · 3 LIVES</p><h1>Orbit Dodge</h1></div><button class="play-button" id="orbit-start">Launch</button></div>
+        <div class="orbit-stage" id="orbit-stage">
+          <canvas id="orbit-canvas" aria-label="Move your ship left and right to dodge asteroids"></canvas>
+          <div class="orbit-hud"><span>BEST <b id="orbit-best">0</b></span><span>TIME <b id="orbit-time">00:45</b></span><span>LIVES <b id="orbit-lives">3</b></span></div>
+          <div class="orbit-message" id="orbit-message"><div class="ship-icon">▲</div><strong>Dodge the asteroids</strong><span>Move with ← → or A / D</span></div>
+        </div>
+        <div class="touch-controls" aria-label="Touch controls"><button type="button" data-move="-1" aria-label="Move left">←</button><button type="button" data-move="1" aria-label="Move right">→</button></div>
+      </section>
+
       <section class="view hidden" id="coolmath-view" aria-label="Coolmath Games">
-        <iframe title="Coolmath Games" src="https://www.coolmathgames.com/" allow="fullscreen; gamepad" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <div class="coolmath-card">
+          <div class="coolmath-mark">C</div>
+          <h1>Coolmath Games</h1>
+          <p>Coolmath blocks its games when they’re embedded inside another site.</p>
+          <a class="play-button" href="https://www.coolmathgames.com/" target="_blank" rel="noopener noreferrer">Open Coolmath in a new tab ↗</a>
+        </div>
       </section>
     </main>
   </body>
