@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#11131d" />
+    <title>Playground</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Playground"><span>P</span> playground</a>
+      <nav aria-label="Games">
+        <button class="tab active" data-view="mine">Our game</button>
+        <button class="tab" data-view="coolmath">Coolmath ↗</button>
+      </nav>
+    </header>
+    <main>
+      <section class="view" id="mine-view">
+        <div class="title-row"><div><p class="eyebrow">QUICK PLAY · 30 SEC</p><h1>Catch the spark</h1></div><button class="play-button" id="start-game">Play</button></div>
+        <div class="game-stage" id="game-stage" aria-label="Catch the spark game area">
+          <div class="stage-top"><span><i class="stage-dot"></i> <span id="game-status">READY</span></span><span>BEST <b id="best-score">0</b></span></div>
+          <div class="stage-message" id="stage-message"><div class="stage-icon">✦</div><strong>Catch the spark</strong><span>Tap Play to start</span></div>
+          <button class="target" id="target" aria-label="Catch the spark" hidden>✦</button>
+          <div class="stage-bottom"><span>SCORE <b id="score">0</b></span><span id="timer">00:30</span></div>
+        </div>
+      </section>
+      <section class="view hidden" id="coolmath-view" aria-label="Coolmath Games">
+        <iframe title="Coolmath Games" src="https://www.coolmathgames.com/" allow="fullscreen; gamepad" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </section>
+    </main>
+  </body>
+</html>
