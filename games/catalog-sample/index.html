@@ -138,9 +138,6 @@
       renderCatalog();
     }
 
-    if (sessionStorage.getItem(ACCESS_KEY) === 'true') showSample();
-    else unlockScreen.hidden = false;
-
     unlockForm.addEventListener('submit', (event) => {
       event.preventDefault();
       if (accessInput.value === '1311') {
@@ -310,6 +307,9 @@
     });
 
     searchInput.addEventListener('input', renderCatalog);
+    renderCatalog();
+    if (sessionStorage.getItem(ACCESS_KEY) === 'true') showSample();
+    else unlockScreen.hidden = false;
   </script>
 </body>
 </html>
