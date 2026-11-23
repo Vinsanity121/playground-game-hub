@@ -40,8 +40,8 @@ const gameOptions = {
   },
   polytrack: {
     title: 'PolyTrack',
-    sourceLabel: 'UNOFFICIAL BUILD',
-    url: 'https://playpolytrackunblocked.github.io/',
+    sourceLabel: 'SELF-HOSTED REUPLOAD',
+    url: './games/polytrack/',
     icon: '🏁',
     note: 'Racing',
     cardClass: 'polytrack-card',
@@ -111,6 +111,7 @@ const gameType = document.querySelector('#game-type');
 const gamePlayer = document.querySelector('#game-player');
 const gameFrame = document.querySelector('#game-frame');
 const directLink = document.querySelector('#direct-link');
+const gameAttribution = document.querySelector('#game-attribution');
 const gameGrid = document.querySelector('#game-grid');
 const screenTabs = document.querySelectorAll('[data-screen]');
 const homeLink = document.querySelector('[data-home-link]');
@@ -139,6 +140,7 @@ function showGame(key) {
   homeScreen.classList.add('hidden');
   playerScreen.classList.remove('hidden');
   directLink.hidden = false;
+  gameAttribution.hidden = key !== 'polytrack';
   directLink.href = game.url;
   directLink.textContent = 'Open directly ↗';
   gameName.textContent = game.title;

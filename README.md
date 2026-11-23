@@ -2,7 +2,7 @@
 
 A browser game hub with Doge Miner 2, Cookie Clicker, PolyTrack, Free Rider Jumps, Free Rider HD, Snow Rider 3D, Shred Sauce, Shell Shockers, Deadshot.io, Crossy Road, and Granny. Games open inside the player, with an **Open directly** fallback for sites that block embedding.
 
-PolyTrack uses the unofficial browser build supplied for this project.
+PolyTrack is served from a pinned, self-hosted copy of Kodub’s official 0.6.3 web build. The deploy workflows download the build directly from Kodub’s web host, enable its unblocked-hosting setting, and keep the game’s original outbound links intact. The site displays the required attribution, official CrazyGames link, and unofficial noncommercial reupload notice. PolyTrack’s online services still connect to Kodub. Other third-party games remain links unless their rights holders allow redistribution; Energy Crossing is hosted locally.
 
 ## Deploy to Cloudflare Pages
 
