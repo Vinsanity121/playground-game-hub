@@ -4,7 +4,7 @@ import path from 'node:path';
 const release = '0.6.3';
 const origin = `https://app-polytrack.kodub.com/${release}/`;
 const output = path.resolve('games/polytrack');
-const assetPattern = /["'`]((?:images|audio|fonts|models|data|lib|tracks)\/[^"'`\s]+?\.(?:svg|png|jpe?g|webp|gif|mp3|ogg|woff2?|json|wasm|glb|gltf|bin|track))["'`]/g;
+const assetPattern = /["'`]((?:images|audio|fonts|models|data|lib|tracks)\/[^"'`\s]+?\.(?:svg|png|jpe?g|webp|gif|mp3|ogg|woff2?|json|wasm|glb|gltf|bin|track|js))["'`]/g;
 
 await mkdir(output, { recursive: true });
 const get = async (url) => {
@@ -31,7 +31,7 @@ for (const match of page.matchAll(/(?:src|href)="([^"]+)"/g)) {
 const manifest = JSON.parse(await (await get(origin + 'manifest.json')).text());
 for (const icon of manifest.icons ?? []) resources.add(icon.src);
 const bundledAssets = [];
-for (const bundle of ['error_screen.bundle.js', 'main.bundle.js']) {
+for (const bundle of ['error_screen.bundle.js', 'main.bundle.js', 'simulation_worker.bundle.js']) {
   const source = await (await get(origin + bundle)).text();
   for (const match of source.matchAll(assetPattern)) bundledAssets.push(match[1]);
 }
