@@ -62,7 +62,7 @@
     scoreEl.textContent=score;bestEl.textContent=best;
   }
   function lineCoords(direction,n){
-    return Array.from({length:size},(_,k)=> direction==='left'?[n*size+k]:direction==='right'?[n*size+(size-1-k)]:direction==='up'?[k*size+n]:[(size-1-k)*size+n])[0];
+    return Array.from({length:size},(_,k)=> direction==='left'?n*size+k:direction==='right'?n*size+(size-1-k):direction==='up'?k*size+n:(size-1-k)*size+n);
   }
   function move(direction){
     if(ended||(!overlay.hidden&&won&&!keepAfterWin))return;
