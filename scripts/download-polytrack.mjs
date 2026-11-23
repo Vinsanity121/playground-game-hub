@@ -21,7 +21,7 @@ const save = async (relative, response) => {
 };
 
 const page = await (await get(origin + '?')).text();
-const resources = new Set(['error_screen.bundle.js', 'main.bundle.js', 'manifest.json', 'forced_square.woff', 'lib/polytrack_physics.wasm', 'simulation_worker.bundle.js', 'lib/draco/draco_wasm_wrapper.js', 'lib/draco/draco_decoder.wasm']);
+const resources = new Set(['error_screen.bundle.js', 'main.bundle.js', 'manifest.json', 'forced_square.woff', 'polytrack_physics.wasm', 'simulation_worker.bundle.js', 'lib/draco/draco_wasm_wrapper.js', 'lib/draco/draco_decoder.wasm']);
 for (const match of page.matchAll(/(?:src|href)="([^"]+)"/g)) {
   const url = new URL(match[1], origin);
   if (url.origin === new URL(origin).origin && url.pathname.startsWith(new URL(origin).pathname)) {
