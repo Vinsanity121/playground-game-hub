@@ -4,7 +4,7 @@ import path from 'node:path';
 const release = '0.6.3';
 const origin = `https://app-polytrack.kodub.com/${release}/`;
 const output = path.resolve('games/polytrack');
-const assetPattern = /["'`]((?:images|audio|fonts|models|data|lib)\/[^"'`\s]+?\.(?:svg|png|jpe?g|webp|gif|mp3|ogg|woff2?|json|wasm))["'`]/g;
+const assetPattern = /["'`]((?:images|audio|fonts|models|data|lib|tracks)\/[^"'`\s]+?\.(?:svg|png|jpe?g|webp|gif|mp3|ogg|woff2?|json|wasm|glb|gltf|bin|track))["'`]/g;
 
 await mkdir(output, { recursive: true });
 const get = async (url) => {
