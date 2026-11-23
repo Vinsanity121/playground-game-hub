@@ -70,7 +70,7 @@ jobs:
           html = page.read_text()
 
           def remove_div_at(source, start):
-              tokens = re.compile(r'</?div\\b[^>]*>', re.I)
+              tokens = re.compile(r'</?div\b[^>]*>', re.I)
               depth = 0
               for token in tokens.finditer(source, start):
                   depth += -1 if token.group(0).lower().startswith('</div') else 1
@@ -79,7 +79,7 @@ jobs:
               raise RuntimeError('Could not find closing div while removing mod-disabled UI.')
 
           def remove_div_id(source, element_id):
-              pattern = re.compile(r'<div\\b[^>]*\\bid=["\\']' + re.escape(element_id) + r'["\\'][^>]*>', re.I)
+              pattern = re.compile(r'<div\b[^>]*\bid=["\']' + re.escape(element_id) + r'["\'][^>]*>', re.I)
               match = pattern.search(source)
               return remove_div_at(source, match.start()) if match else source
 
@@ -95,9 +95,9 @@ jobs:
           firebase_end = html.find('    <!-- Scripts -->', firebase_start)
           if firebase_start < 0 or firebase_end < 0:
               raise RuntimeError('Firebase block markers were not found.')
-          html = html[:firebase_start] + '    <!-- Cloud saves and analytics are disabled in this free club mod. -->\\n\\n' + html[firebase_end:]
-          html = html.replace("                'js/cloud-save.js?v=4',\\n", '')
-          html = '\\n'.join(line for line in html.splitlines() if '../favicon_io/' not in line)
+          html = html[:firebase_start] + '    <!-- Cloud saves and analytics are disabled in this free club mod. -->\n\n' + html[firebase_end:]
+          html = html.replace("                'js/cloud-save.js?v=4',\n", '')
+          html = '\n'.join(line for line in html.splitlines() if '../favicon_io/' not in line)
 
           style = '''
           <style>
@@ -121,8 +121,8 @@ jobs:
           '''
           if '</head>' not in html or '<body>' not in html:
               raise RuntimeError('Expected Dogeminer page structure was not found.')
-          html = html.replace('</head>', style + '\\n</head>', 1)
-          html = html.replace('<body>', '<body>\\n' + credit, 1)
+          html = html.replace('</head>', style + '\n</head>', 1)
+          html = html.replace('<body>', '<body>\n' + credit, 1)
           page.write_text(html)
           PY
 
@@ -136,7 +136,7 @@ jobs:
           root = Path(sys.argv[1])
           main_file = root / 'src/main.js'
           main = main_file.read_text()
-          import_line = "import { saveScore, displayLeaderboard } from './leaderboard.js';\\n"
+          import_line = "import { saveScore, displayLeaderboard } from './leaderboard.js';\n"
           if import_line not in main:
               raise RuntimeError('Expected leaderboard import not found.')
           main = main.replace(import_line, '')
