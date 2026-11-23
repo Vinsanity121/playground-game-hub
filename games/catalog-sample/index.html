@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11131d">
+  <title>Playground · Catalog Sample</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; background: #11131d; color: #f4f3ee; }
+    body { min-width: 320px; min-height: 100vh; margin: 0; background: radial-gradient(ellipse at 50% -30%, #343c60 0, transparent 60%), #11131d; }
+    [hidden] { display: none !important; }
+    a { color: inherit; }
+    button, input { font: inherit; }
+    .topbar { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px clamp(16px, 4vw, 56px); border-bottom: 1px solid #ffffff18; background: #11131de8; }
+    .brand { display: inline-flex; align-items: center; gap: 9px; color: #f4f3ee; font-weight: 700; text-decoration: none; }
+    .brand-mark { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 9px; background: #f3c85b; color: #202235; }
+    .sample-tag { color: #a9afc2; font-size: 10px; font-weight: 700; letter-spacing: 1px; }
+    main { width: min(1080px, 92vw); margin: 48px auto 64px; }
+    .eyebrow { margin: 0 0 7px; color: #a9afc2; font-size: 10px; font-weight: 700; letter-spacing: 1.4px; }
+    h1 { margin: 0; font-size: clamp(30px, 5vw, 46px); font-weight: 650; letter-spacing: -1.7px; }
+    .subhead { margin: 10px 0 24px; color: #b8bbca; }
+    .toolbar { display: flex; gap: 10px; margin: 22px 0 14px; }
+    .search { min-width: 0; flex: 1; padding: 12px 14px; border: 1px solid #ffffff20; border-radius: 11px; background: #191c29; color: #f4f3ee; }
+    .search:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid #f3c85b; outline-offset: 3px; }
+    .action { padding: 0 16px; border: 1px solid #ffffff20; border-radius: 11px; background: #f3c85b; color: #202235; font-weight: 750; cursor: pointer; }
+    .category-filters { display: flex; gap: 8px; overflow-x: auto; padding: 3px 2px 10px; }
+    .filter { flex: 0 0 auto; padding: 8px 13px; border: 1px solid #ffffff1f; border-radius: 999px; background: #ffffff08; color: #c5c8d4; font-size: 12px; font-weight: 650; cursor: pointer; }
+    .filter[aria-pressed="true"] { border-color: #f3c85b; background: #f3c85b; color: #202235; }
+    .result-count { margin: 8px 2px 22px; color: #a9afc2; font-size: 12px; }
+    .collection { margin: 24px 0 30px; }
+    .collection h2 { margin: 0 0 13px; font-size: 17px; letter-spacing: -.3px; }
+    .game-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .catalog-card { position: relative; min-width: 0; }
+    .game-card { position: relative; width: 100%; min-height: 190px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; overflow: hidden; padding: 20px; border: 1px solid #ffffff20; border-radius: 16px; color: #f4f3ee; text-align: left; cursor: pointer; transition: transform .18s, border-color .18s, filter .18s; }
+    .game-card:hover { transform: translateY(-3px); border-color: #ffffff55; filter: brightness(1.08); }
+    .game-card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 76% 28%, #ffffff28, transparent 34%); pointer-events: none; }
+    .tone-clicker { background: linear-gradient(145deg, #b57745, #543d4f 62%, #262743); }
+    .tone-racing { background: linear-gradient(145deg, #399b9c, #285b71 55%, #242747); }
+    .tone-arcade { background: linear-gradient(145deg, #e0a540, #b65c3a 56%, #522f49); }
+    .game-icon { position: absolute; right: 18px; top: 16px; width: 72px; height: 72px; display: grid; place-items: center; border: 1px solid #ffffff4b; border-radius: 50%; background: #11131d38; color: #fff0bf; font-size: 42px; text-shadow: 0 5px 18px #15132388; }
+    .game-title { position: relative; max-width: 78%; font-size: 18px; font-weight: 750; letter-spacing: -.4px; }
+    .game-note { position: relative; margin-top: 5px; color: #ffffffb5; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    .play-arrow { position: absolute; right: 16px; bottom: 15px; width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid #ffffff52; border-radius: 50%; background: #ffffff14; }
+    .favorite-toggle { position: absolute; z-index: 2; top: 11px; left: 11px; width: 36px; height: 36px; border: 1px solid #ffffff55; border-radius: 50%; background: #11131d99; color: #fff0bf; font-size: 19px; cursor: pointer; }
+    .favorite-toggle[aria-pressed="true"] { color: #f3c85b; }
+    .empty-note { padding: 16px; border: 1px dashed #ffffff30; border-radius: 12px; color: #a9afc2; font-size: 13px; }
+    .player-panel { margin: 24px 0 30px; overflow: hidden; border: 1px solid #ffffff20; border-radius: 14px; background: #191c29; }
+    .player-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; }
+    .player-heading h2 { margin: 0; font-size: 18px; }
+    .player-actions { display: flex; gap: 8px; }
+    .player-actions a, .player-actions button { padding: 8px 11px; border: 1px solid #ffffff25; border-radius: 8px; background: #ffffff0c; color: #f4f3ee; font-size: 12px; font-weight: 650; text-decoration: none; cursor: pointer; }
+    .player-frame { height: min(65vh, 620px); min-height: 360px; background: #fff; }
+    .player-frame iframe { width: 100%; height: 100%; border: 0; background: #fff; }
+    .back-link { display: inline-block; margin-top: 28px; color: #c6c9d3; font-size: 12px; }
+    .unlock-screen { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+    .unlock-card { width: min(400px, 92vw); padding: 30px; border: 1px solid #ffffff20; border-radius: 18px; background: #191c29ee; box-shadow: 0 22px 70px #07081080; }
+    .unlock-card h1 { margin-bottom: 20px; font-size: 30px; }
+    .unlock-card label { display: block; margin-bottom: 8px; color: #c6c9d3; font-size: 12px; font-weight: 600; }
+    .unlock-controls { display: flex; gap: 9px; }
+    .unlock-controls input { min-width: 0; flex: 1; padding: 12px; border: 1px solid #ffffff30; border-radius: 9px; background: #11131d; color: #f4f3ee; font-size: 18px; letter-spacing: 5px; }
+    .unlock-controls button { padding: 0 17px; border: 0; border-radius: 9px; background: #f3c85b; color: #202235; font-weight: 750; cursor: pointer; }
+    .unlock-error { color: #ffb6a9; font-size: 12px; }
+    @media (max-width: 760px) { .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 560px) { main { margin-top: 34px; } .topbar { align-items: flex-start; flex-direction: column; gap: 7px; } .toolbar { flex-direction: column; } .action { min-height: 42px; } .game-grid { grid-template-columns: 1fr; gap: 10px; } .game-card { min-height: 142px; } .player-heading { align-items: flex-start; flex-direction: column; } .player-frame { height: 60vh; min-height: 320px; } }
+  </style>
+</head>
+<body>
+  <section class="unlock-screen" id="unlock-screen" aria-labelledby="unlock-title" hidden>
+    <form class="unlock-card" id="unlock-form">
+      <p class="eyebrow">PLAYGROUND</p>
+      <h1 id="unlock-title">Enter code</h1>
+      <label for="access-code">4-digit access code</label>
+      <div class="unlock-controls">
+        <input id="access-code" type="text" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required autocomplete="off" aria-describedby="unlock-error">
+        <button type="submit">Unlock</button>
+      </div>
+      <p class="unlock-error" id="unlock-error" role="alert" hidden>That code did not work. Try again.</p>
+    </form>
+  </section>
+
+  <div id="sample-app" hidden>
+    <header class="topbar">
+      <a class="brand" href="../../"><span class="brand-mark">P</span> playground</a>
+      <span class="sample-tag">SMALL CATALOG SAMPLE · 3 GAMES</span>
+    </header>
+    <main>
+      <p class="eyebrow">PLAYGROUND · CATALOG PREVIEW</p>
+      <h1>Find a game</h1>
+      <p class="subhead">A small test of search, categories, favorites, recent games, and a random pick.</p>
+
+      <div class="toolbar">
+        <input class="search" id="game-search" type="search" placeholder="Search games…" aria-label="Search games">
+        <button class="action" id="surprise-button" type="button">Surprise me ↗</button>
+      </div>
+      <nav class="category-filters" id="category-filters" aria-label="Filter by category"></nav>
+      <p class="result-count" id="result-count" aria-live="polite"></p>
+
+      <section class="player-panel" id="player-panel" aria-label="Game player" hidden>
+        <div class="player-heading">
+          <h2 id="player-title">Game</h2>
+          <div class="player-actions">
+            <a id="open-direct" href="#" target="_blank" rel="noopener noreferrer">Open in tab ↗</a>
+            <button id="close-player" type="button">Close</button>
+          </div>
+        </div>
+        <div class="player-frame"><iframe id="game-frame" title="Game player" allow="autoplay; fullscreen; gamepad; pointer-lock" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" src="about:blank"></iframe></div>
+      </section>
+
+      <section class="collection" id="favorites-section" hidden>
+        <h2>Favorites</h2>
+        <div class="game-grid" id="favorites-grid"></div>
+      </section>
+      <section class="collection" id="recent-section" hidden>
+        <h2>Recently played</h2>
+        <div class="game-grid" id="recent-grid"></div>
+      </section>
+      <section class="collection">
+        <h2>All sample games</h2>
+        <div class="game-grid" id="all-games-grid"></div>
+        <p class="empty-note" id="empty-note" hidden>No games match that search.</p>
+      </section>
+      <a class="back-link" href="../../">← Back to the main Playground</a>
+    </main>
+  </div>
+
+  <script>
+    const ACCESS_KEY = 'playground-access-unlocked';
+    const unlockScreen = document.querySelector('#unlock-screen');
+    const sampleApp = document.querySelector('#sample-app');
+    const unlockForm = document.querySelector('#unlock-form');
+    const accessInput = document.querySelector('#access-code');
+    const unlockError = document.querySelector('#unlock-error');
+
+    function showSample() {
+      unlockScreen.hidden = true;
+      sampleApp.hidden = false;
+      renderCatalog();
+    }
+
+    if (sessionStorage.getItem(ACCESS_KEY) === 'true') showSample();
+    else unlockScreen.hidden = false;
+
+    unlockForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (accessInput.value === '1311') {
+        sessionStorage.setItem(ACCESS_KEY, 'true');
+        unlockError.hidden = true;
+        showSample();
+      } else {
+        unlockError.hidden = false;
+        accessInput.value = '';
+        accessInput.focus();
+      }
+    });
+
+    const games = [
+      { id: 'doge', title: 'Doge Miner 2', category: 'Clicker', detail: 'Incremental clicker', icon: 'Ð', theme: 'tone-clicker', url: 'https://dogeminer2.com/play/' },
+      { id: 'polytrack', title: 'PolyTrack', category: 'Racing', detail: 'Time-trial racing', icon: '🏁', theme: 'tone-racing', url: 'https://playpolytrackunblocked.github.io/' },
+      { id: 'energycrossing', title: 'Energy Crossing', category: 'Arcade', detail: 'Made by Olympus AI Club', icon: '⚡', theme: 'tone-arcade', url: '../../games/energy-crossing/' },
+    ];
+    const categoryFilters = document.querySelector('#category-filters');
+    const searchInput = document.querySelector('#game-search');
+    const countLabel = document.querySelector('#result-count');
+    const allGamesGrid = document.querySelector('#all-games-grid');
+    const favoritesGrid = document.querySelector('#favorites-grid');
+    const recentGrid = document.querySelector('#recent-grid');
+    const favoritesSection = document.querySelector('#favorites-section');
+    const recentSection = document.querySelector('#recent-section');
+    const emptyNote = document.querySelector('#empty-note');
+    const playerPanel = document.querySelector('#player-panel');
+    const playerTitle = document.querySelector('#player-title');
+    const openDirect = document.querySelector('#open-direct');
+    const gameFrame = document.querySelector('#game-frame');
+    let activeCategory = 'All';
+    let favoriteIds = readList('playground.catalog-sample.favorites');
+    let recentIds = readList('playground.catalog-sample.recent');
+    let currentGameId = '';
+
+    function readList(key) {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(key) || '[]');
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveLists() {
+      localStorage.setItem('playground.catalog-sample.favorites', JSON.stringify(favoriteIds));
+      localStorage.setItem('playground.catalog-sample.recent', JSON.stringify(recentIds));
+    }
+
+    function matchingGames() {
+      const query = searchInput.value.trim().toLowerCase();
+      return games.filter((game) => {
+        const matchesCategory = activeCategory === 'All' || game.category === activeCategory;
+        const matchesSearch = !query || (game.title + ' ' + game.category + ' ' + game.detail).toLowerCase().includes(query);
+        return matchesCategory && matchesSearch;
+      });
+    }
+
+    function makeCard(game) {
+      const article = document.createElement('article');
+      article.className = 'catalog-card';
+
+      const playButton = document.createElement('button');
+      playButton.type = 'button';
+      playButton.className = 'game-card ' + game.theme;
+      playButton.setAttribute('aria-label', 'Play ' + game.title);
+
+      const icon = document.createElement('span');
+      icon.className = 'game-icon';
+      icon.setAttribute('aria-hidden', 'true');
+      icon.textContent = game.icon;
+
+      const title = document.createElement('span');
+      title.className = 'game-title';
+      title.textContent = game.title;
+
+      const detail = document.createElement('span');
+      detail.className = 'game-note';
+      detail.textContent = game.detail;
+
+      const arrow = document.createElement('span');
+      arrow.className = 'play-arrow';
+      arrow.setAttribute('aria-hidden', 'true');
+      arrow.textContent = '↗';
+
+      playButton.append(icon, title, detail, arrow);
+      playButton.addEventListener('click', () => playGame(game));
+
+      const favoriteButton = document.createElement('button');
+      const isFavorite = favoriteIds.includes(game.id);
+      favoriteButton.type = 'button';
+      favoriteButton.className = 'favorite-toggle';
+      favoriteButton.setAttribute('aria-pressed', String(isFavorite));
+      favoriteButton.setAttribute('aria-label', (isFavorite ? 'Remove ' : 'Add ') + game.title + ' ' + (isFavorite ? 'from' : 'to') + ' favorites');
+      favoriteButton.textContent = isFavorite ? '★' : '☆';
+      favoriteButton.addEventListener('click', () => toggleFavorite(game.id));
+
+      article.append(playButton, favoriteButton);
+      return article;
+    }
+
+    function renderCards(container, entries) {
+      container.replaceChildren(...entries.map(makeCard));
+    }
+
+    function renderCatalog() {
+      const categories = ['All', ...new Set(games.map((game) => game.category))];
+      categoryFilters.replaceChildren();
+      categories.forEach((category) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'filter';
+        button.textContent = category === 'All' ? 'All · ' + games.length : category;
+        button.setAttribute('aria-pressed', String(activeCategory === category));
+        button.addEventListener('click', () => {
+          activeCategory = category;
+          renderCatalog();
+        });
+        categoryFilters.append(button);
+      });
+
+      const matches = matchingGames();
+      const matchingIds = new Set(matches.map((game) => game.id));
+      const favorites = matches.filter((game) => favoriteIds.includes(game.id));
+      const recents = recentIds.filter((id) => matchingIds.has(id)).map((id) => games.find((game) => game.id === id)).filter(Boolean);
+
+      renderCards(allGamesGrid, matches);
+      renderCards(favoritesGrid, favorites);
+      renderCards(recentGrid, recents);
+      favoritesSection.hidden = favorites.length === 0;
+      recentSection.hidden = recents.length === 0;
+      emptyNote.hidden = matches.length !== 0;
+      countLabel.textContent = matches.length === games.length ? games.length + ' games' : matches.length + ' of ' + games.length + ' games';
+    }
+
+    function toggleFavorite(id) {
+      favoriteIds = favoriteIds.includes(id) ? favoriteIds.filter((item) => item !== id) : [id, ...favoriteIds];
+      saveLists();
+      renderCatalog();
+    }
+
+    function playGame(game) {
+      recentIds = [game.id, ...recentIds.filter((id) => id !== game.id)].slice(0, 6);
+      saveLists();
+      currentGameId = game.id;
+      playerTitle.textContent = game.title;
+      openDirect.href = game.url;
+      if (gameFrame.src !== new URL(game.url, location.href).href) gameFrame.src = game.url;
+      playerPanel.hidden = false;
+      renderCatalog();
+      playerPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.querySelector('#close-player').addEventListener('click', () => {
+      playerPanel.hidden = true;
+      gameFrame.src = 'about:blank';
+      currentGameId = '';
+    });
+
+    document.querySelector('#surprise-button').addEventListener('click', () => {
+      const pool = matchingGames();
+      if (!pool.length) return;
+      const options = pool.filter((game) => game.id !== currentGameId);
+      const pickFrom = options.length ? options : pool;
+      playGame(pickFrom[Math.floor(Math.random() * pickFrom.length)]);
+    });
+
+    searchInput.addEventListener('input', renderCatalog);
+  </script>
+</body>
+</html>
