@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#11131d">
+<title>2048 · Playground</title>
+<style>
+  *{box-sizing:border-box}
+  :root{color-scheme:dark;font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;background:#11131d;color:#f5f3ed}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at 50% 0,#30385c,transparent 65%),#11131d}
+  .wrap{width:min(510px,100%)}
+  a{color:#c9d3ff}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+  .top a{font-size:13px;text-decoration:none;color:#b9bfd2}
+  h1{margin:0;font-size:clamp(34px,9vw,54px);line-height:1;letter-spacing:-2px}
+  .sub{margin:9px 0 20px;color:#b9bfd2;font-size:14px}
+  .stats{display:flex;gap:8px}
+  .stat{min-width:82px;padding:8px 12px;text-align:center;border:1px solid #ffffff18;border-radius:10px;background:#1c2030}
+  .stat span{display:block;color:#aab0c2;font-size:10px;font-weight:800;letter-spacing:1px}
+  .stat strong{font-size:20px}
+  .toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+  button{border:1px solid #ffffff24;border-radius:9px;background:#f3c85b;color:#24263a;padding:10px 14px;font:700 13px system-ui;cursor:pointer}
+  button:focus-visible,a:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  .board{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:10px;border:1px solid #ffffff24;border-radius:15px;background:#252a3c;touch-action:none;user-select:none}
+  .cell{aspect-ratio:1;display:grid;place-items:center;border-radius:9px;background:#171b2a;color:#f5f3ed;font-size:clamp(23px,8vw,42px);font-weight:800;letter-spacing:-1.5px}
+  .tile-2{background:#d8d2bf;color:#25263a}.tile-4{background:#d8b878;color:#25263a}
+  .tile-8{background:#e89c57}.tile-16{background:#e77a49}.tile-32{background:#df5c45}
+  .tile-64{background:#cc3d43}.tile-128{background:#e3c44f;color:#262638;font-size:clamp(19px,6vw,34px)}
+  .tile-256{background:#c9ac42;color:#25263a;font-size:clamp(19px,6vw,34px)}
+  .tile-512{background:#ae8f37;color:white;font-size:clamp(19px,6vw,34px)}
+  .tile-1024,.tile-2048,.tile-max{background:#826cd0;color:white;font-size:clamp(16px,5vw,28px)}
+  .help{margin:14px 2px 0;color:#aeb4c7;font-size:12px}
+  .overlay{position:absolute;inset:10px;display:grid;place-items:center;border-radius:10px;background:#11131de8;text-align:center;padding:22px}
+  .overlay[hidden]{display:none}
+  .overlay h2{margin:0 0 7px;font-size:28px}
+  .overlay p{margin:0 0 17px;color:#c1c5d3}
+  .overlay-actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top"><a href="../">← Catalog</a><div class="stats"><div class="stat"><span>SCORE</span><strong id="score">0</strong></div><div class="stat"><span>BEST</span><strong id="best">0</strong></div></div></div>
+  <h1>2048</h1>
+  <p class="sub">Merge matching tiles and reach 2048.</p>
+  <div class="toolbar"><span>Use arrow keys, WASD, or swipe.</span><button id="new-game" type="button">New game</button></div>
+  <section class="board" id="board" role="grid" aria-label="2048 game board">
+    <div class="overlay" id="overlay" hidden><div><h2 id="overlay-title"></h2><p id="overlay-text"></p><div class="overlay-actions"><button id="overlay-primary" type="button"></button><button id="keep-playing" type="button" hidden>Keep playing</button></div></div></div>
+  </section>
+  <p class="help">Game and best score stay in this browser. Press <kbd>R</kbd> to start over.</p>
+</main>
+<script>
+(() => {
+  const size=4, boardEl=document.querySelector('#board'), scoreEl=document.querySelector('#score'), bestEl=document.querySelector('#best');
+  const overlay=document.querySelector('#overlay'), overlayTitle=document.querySelector('#overlay-title'), overlayText=document.querySelector('#overlay-text'), overlayPrimary=document.querySelector('#overlay-primary'), keepPlaying=document.querySelector('#keep-playing');
+  let board, score=0, best=Number(localStorage.getItem('playground-2048-best')||0), won=false, keepAfterWin=false, ended=false, startPoint=null;
+  function newGame(){board=Array(size*size).fill(0);score=0;won=false;keepAfterWin=false;ended=false;overlay.hidden=true;addTile();addTile();render()}
+  function addTile(){const free=[];board.forEach((v,i)=>{if(!v)free.push(i)});if(!free.length)return;const i=free[Math.floor(Math.random()*free.length)];board[i]=Math.random()<.9?2:4}
+  function render(){
+    boardEl.querySelectorAll('.cell').forEach(el=>el.remove());
+    board.forEach((value,index)=>{const cell=document.createElement('div');cell.className='cell'+(value?' tile-'+(value<=2048?value:'max'):'');cell.setAttribute('role','gridcell');cell.setAttribute('aria-label',value?String(value):'empty');cell.textContent=value||'';boardEl.append(cell)});
+    scoreEl.textContent=score;bestEl.textContent=best;
+  }
+  function lineCoords(direction,n){
+    return Array.from({length:size},(_,k)=> direction==='left'?[n*size+k]:direction==='right'?[n*size+(size-1-k)]:direction==='up'?[k*size+n]:[(size-1-k)*size+n])[0];
+  }
+  function move(direction){
+    if(ended||(!overlay.hidden&&won&&!keepAfterWin))return;
+    let changed=false, gained=0;
+    for(let n=0;n<size;n++){
+      const coords=lineCoords(direction,n), values=coords.map(i=>board[i]).filter(Boolean);
+      for(let i=0;i<values.length-1;i++){if(values[i]===values[i+1]){values[i]*=2;gained+=values[i];values.splice(i+1,1);}}
+      while(values.length<size)values.push(0);
+      coords.forEach((idx,k)=>{if(board[idx]!==values[k])changed=true;board[idx]=values[k]});
+    }
+    if(!changed)return;
+    score+=gained;if(score>best){best=score;localStorage.setItem('playground-2048-best',String(best))}
+    addTile();
+    const reached=board.includes(2048);
+    render();
+    if(reached&&!won){won=true;showOverlay('You made it!','You reached 2048.','Nice!');keepPlaying.hidden=false;return}
+    if(!canMove()){ended=true;showOverlay('No moves left','Your final score is '+score+'.','Try again');keepPlaying.hidden=true}
+  }
+  function canMove(){if(board.includes(0))return true;for(let r=0;r<size;r++)for(let c=0;c<size;c++){const i=r*size+c;if(c<size-1&&board[i]===board[i+1]||r<size-1&&board[i]===board[i+size])return true}return false}
+  function showOverlay(title,message,button){overlayTitle.textContent=title;overlayText.textContent=message;overlayPrimary.textContent=button;overlay.hidden=false}
+  document.addEventListener('keydown',event=>{
+    if(event.key.toLowerCase()==='r'){newGame();return}
+    const key=event.key.toLowerCase(), map={ArrowLeft:'left',a:'left',ArrowRight:'right',d:'right',ArrowUp:'up',w:'up',ArrowDown:'down',s:'down'};
+    if(map[event.key]||map[key]){event.preventDefault();move(map[event.key]||map[key])}
+  });
+  boardEl.addEventListener('pointerdown',event=>{startPoint={x:event.clientX,y:event.clientY}});
+  boardEl.addEventListener('pointerup',event=>{
+    if(!startPoint)return;const dx=event.clientX-startPoint.x,dy=event.clientY-startPoint.y;startPoint=null;
+    if(Math.max(Math.abs(dx),Math.abs(dy))<25)return;
+    move(Math.abs(dx)>Math.abs(dy)?(dx>0?'right':'left'):(dy>0?'down':'up'));
+  });
+  document.querySelector('#new-game').addEventListener('click',newGame);
+  overlayPrimary.addEventListener('click',newGame);
+  keepPlaying.addEventListener('click',()=>{keepAfterWin=true;overlay.hidden=true;keepPlaying.hidden=true});
+  newGame();
+})();
+</script>
+</body>
+</html>
