@@ -39,6 +39,9 @@
     .tone-clicker { background: linear-gradient(145deg, #b57745, #543d4f 62%, #262743); }
     .tone-racing { background: linear-gradient(145deg, #399b9c, #285b71 55%, #242747); }
     .tone-arcade { background: linear-gradient(145deg, #e0a540, #b65c3a 56%, #522f49); }
+    .tone-puzzle { background: linear-gradient(145deg, #6677c2, #45466f 60%, #242744); }
+    .tone-sports { background: linear-gradient(145deg, #8d9534, #4d6c4c 57%, #252a42); }
+    .tone-battle { background: linear-gradient(145deg, #a85165, #6a3e59 57%, #24243e); }
     .game-icon { position: absolute; right: 18px; top: 16px; width: 72px; height: 72px; display: grid; place-items: center; border: 1px solid #ffffff4b; border-radius: 50%; background: #11131d38; color: #fff0bf; font-size: 42px; text-shadow: 0 5px 18px #15132388; }
     .game-title { position: relative; max-width: 78%; font-size: 18px; font-weight: 750; letter-spacing: -.4px; }
     .game-note { position: relative; margin-top: 5px; color: #ffffffb5; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
@@ -83,12 +86,12 @@
   <div id="sample-app" hidden>
     <header class="topbar">
       <a class="brand" href="../../"><span class="brand-mark">P</span> playground</a>
-      <span class="sample-tag">SMALL CATALOG SAMPLE · 3 GAMES</span>
+      <span class="sample-tag">SMALL CATALOG SAMPLE · 6 GAMES</span>
     </header>
     <main>
       <p class="eyebrow">PLAYGROUND · CATALOG PREVIEW</p>
       <h1>Find a game</h1>
-      <p class="subhead">A small test of search, categories, favorites, recent games, and a random pick.</p>
+      <p class="subhead">Try search, category filters, favorites, recently played, and a random pick. Three picks load from Story Network.</p>
 
       <div class="toolbar">
         <input class="search" id="game-search" type="search" placeholder="Search games…" aria-label="Search games">
@@ -155,6 +158,9 @@
     const games = [
       { id: 'doge', title: 'Doge Miner 2', category: 'Clicker', detail: 'Incremental clicker', icon: 'Ð', theme: 'tone-clicker', url: 'https://dogeminer2.com/play/' },
       { id: 'polytrack', title: 'PolyTrack', category: 'Racing', detail: 'Time-trial racing', icon: '🏁', theme: 'tone-racing', url: 'https://playpolytrackunblocked.github.io/' },
+      { id: 'sn-2048', title: '2048', category: 'Puzzle', detail: 'Story Network · Puzzle', icon: '🔢', theme: 'tone-puzzle', url: 'https://www.storynetwork.shop/?id=114' },
+      { id: 'sn-basketrandom', title: 'Basket Random', category: 'Sports', detail: 'Story Network · Sports', icon: '🏀', theme: 'tone-sports', url: 'https://www.storynetwork.shop/?id=sn-basketrandom' },
+      { id: 'sn-badtimesim', title: 'Bad Time Simulator', category: 'Arcade', detail: 'Story Network · Arcade', icon: '❤️', theme: 'tone-battle', url: 'https://www.storynetwork.shop/?id=sn-badtimesim' },
       { id: 'energycrossing', title: 'Energy Crossing', category: 'Arcade', detail: 'Made by Olympus AI Club', icon: '⚡', theme: 'tone-arcade', url: '../../games/energy-crossing/' },
     ];
     const categoryFilters = document.querySelector('#category-filters');
