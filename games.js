@@ -46,6 +46,14 @@ const gameOptions = {
     note: 'Racing',
     cardClass: 'polytrack-card',
   },
+  game2048: {
+    title: '2048',
+    sourceLabel: 'SELF-HOSTED',
+    url: './games/catalog-sample/2048/',
+    icon: '🔢',
+    note: 'Puzzle',
+    cardClass: 'game-2048-card',
+  },
   freeriderjumps: {
     title: 'Free Rider Jumps',
     sourceLabel: 'BIKE GAME',
