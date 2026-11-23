@@ -86,6 +86,14 @@ const gameOptions = {
     note: 'Road crossing',
     cardClass: 'crossy-card',
   },
+  energycrossing: {
+    title: 'Energy Crossing',
+    sourceLabel: 'SELF-HOSTED',
+    url: './games/energy-crossing/',
+    icon: '⚡',
+    note: 'Arcade runner',
+    cardClass: 'energy-crossing-card',
+  },
   granny: {
     title: 'Granny',
     sourceLabel: 'HORROR GAME',

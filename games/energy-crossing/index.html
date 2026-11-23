@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#09152d">
+  <title>Energy Crossing</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, ui-rounded, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #09152d; }
+    body { color: #f7f4e9; }
+    #game { position: relative; width: 100%; height: 100%; min-height: 420px; overflow: hidden; background: #09152d; }
+    canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+    .hud { position: absolute; inset: 16px 18px auto; display: flex; align-items: flex-start; justify-content: space-between; pointer-events: none; text-shadow: 0 2px 8px #061024; }
+    .brand { display: grid; gap: 2px; font-size: 11px; font-weight: 800; letter-spacing: .18em; color: #93b9cf; text-transform: uppercase; }
+    .brand strong { color: #fff6d0; font-size: 16px; letter-spacing: .08em; }
+    .score { text-align: right; font-size: 11px; font-weight: 800; letter-spacing: .13em; color: #a8c2d2; text-transform: uppercase; }
+    .score strong { display: block; color: #fff6d0; font-size: 26px; line-height: 1.1; letter-spacing: 0; }
+    .screen { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; background: linear-gradient(180deg, #08132bcc, #08132d8c); }
+    .screen[hidden] { display: none; }
+    .panel { width: min(440px, 100%); padding: 30px 28px; border: 1px solid #6bb8d866; border-radius: 24px; background: #101f3def; box-shadow: 0 24px 80px #020715aa, inset 0 1px #ffffff14; text-align: center; backdrop-filter: blur(12px); }
+    .bolt { width: 66px; height: 66px; margin: 0 auto 14px; display: grid; place-items: center; border-radius: 22px; background: #ffcf5a; color: #17243a; font-size: 36px; box-shadow: 0 0 36px #ffd26366; }
+    h1 { margin: 0; color: #fff6d0; font-size: clamp(26px, 6vw, 38px); letter-spacing: -.04em; }
+    .panel p { margin: 10px 0 22px; color: #bbcad8; font-size: 14px; line-height: 1.55; }
+    .start { min-width: 160px; padding: 13px 22px; border: 0; border-radius: 999px; background: #ffcf5a; color: #17243a; font: inherit; font-size: 13px; font-weight: 900; letter-spacing: .12em; cursor: pointer; box-shadow: 0 7px 0 #ce8e35; transition: transform .12s, box-shadow .12s; }
+    .start:hover { transform: translateY(-2px); box-shadow: 0 9px 0 #ce8e35; }
+    .start:active { transform: translateY(3px); box-shadow: 0 3px 0 #ce8e35; }
+    .hint { margin-top: 18px; color: #8ea8bd; font-size: 11px; }
+    .touchpad { position: absolute; right: max(20px, env(safe-area-inset-right)); bottom: max(22px, env(safe-area-inset-bottom)); display: none; grid-template: repeat(2, 48px) / repeat(3, 48px); gap: 5px; }
+    .touchpad button { border: 1px solid #d4e6f244; border-radius: 14px; color: #f8f4e7; background: #0c1b37cc; font-size: 20px; touch-action: manipulation; }
+    .touchpad button[data-move="up"] { grid-area: 1 / 2; }
+    .touchpad button[data-move="left"] { grid-area: 2 / 1; }
+    .touchpad button[data-move="down"] { grid-area: 2 / 2; }
+    .touchpad button[data-move="right"] { grid-area: 2 / 3; }
+    @media (pointer: coarse), (max-width: 700px) {
+      .touchpad { display: grid; }
+      .hud { inset: 12px 14px auto; }
+      .brand strong { font-size: 14px; }
+      .score strong { font-size: 22px; }
+      .panel { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <main id="game" aria-label="Energy Crossing game">
+    <canvas id="field" aria-label="Cross the changing energy lanes"></canvas>
+    <div class="hud">
+      <div class="brand"><strong>Energy Crossing</strong><span>Keep the current flowing</span></div>
+      <div class="score"><span>Distance</span><strong id="score">0</strong><span>Best <b id="best">0</b></span></div>
+    </div>
+    <div class="screen" id="screen">
+      <section class="panel">
+        <div class="bolt" aria-hidden="true">ϟ</div>
+        <h1 id="screen-title">Cross the current</h1>
+        <p id="screen-copy">Dodge the traffic. Ride the floating cells. See how far your little spark can travel.</p>
+        <button class="start" id="start" type="button">START RUN</button>
+        <div class="hint">Arrow keys or WASD · swipe or tap on mobile</div>
+      </section>
+    </div>
+    <div class="touchpad" aria-label="Touch controls">
+      <button data-move="up" aria-label="Move forward">↑</button>
+      <button data-move="left" aria-label="Move left">←</button>
+      <button data-move="down" aria-label="Move back">↓</button>
+      <button data-move="right" aria-label="Move right">→</button>
+    </div>
+  </main>
+  <script>
+    (() => {
+      const canvas = document.querySelector("#field");
+      const ctx = canvas.getContext("2d");
+      const screen = document.querySelector("#screen");
+      const screenTitle = document.querySelector("#screen-title");
+      const screenCopy = document.querySelector("#screen-copy");
+      const startButton = document.querySelector("#start");
+      const scoreText = document.querySelector("#score");
+      const bestText = document.querySelector("#best");
+      const cols = 9;
+      let width = 0;
+      let height = 0;
+      let dpr = 1;
+      let state = "title";
+      let lastTime = 0;
+      let elapsed = 0;
+      let score = 0;
+      let best = Number(localStorage.getItem("energy-crossing-best") || 0);
+      let lanes = new Map();
+      let player = { x: 4, row: 1 };
+      let rideLog = null;
+      let pointerStart = null;
+      bestText.textContent = String(best);
+
+      function resize() {
+        const box = canvas.getBoundingClientRect();
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = box.width;
+        height = box.height;
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      window.addEventListener("resize", resize);
+      resize();
+
+      function randomFor(row) {
+        let seed = (row * 2654435761 + 374761393) >>> 0;
+        return () => {
+          seed = (seed + 0x6D2B79F5) >>> 0;
+          let t = seed;
+          t = Math.imul(t ^ (t >>> 15), t | 1);
+          t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      function laneFor(row) {
+        if (lanes.has(row)) return lanes.get(row);
+        let type = "grass";
+        if (row > 1) {
+          const pattern = ((row % 7) + 7) % 7;
+          type = pattern === 3 ? "water" : (pattern === 1 || pattern === 2 || pattern === 5 ? "road" : "grass");
+        }
+        const lane = { row, type, objects: [], direction: row % 2 ? 1 : -1 };
+        if (type !== "grass") {
+          const random = randomFor(row);
+          const count = type === "road" ? 3 : 3;
+          const speed = (0.72 + random() * 0.6) * (type === "water" ? -1 : 1);
+          for (let i = 0; i < count; i++) {
+            lane.objects.push({
+              x: i * 3.7 + random() * 1.5 - 1,
+              width: type === "road" ? 1.05 + random() * 0.3 : 1.7 + random() * 0.55,
+              speed,
+              color: ["#ff7a59", "#f5bd4f", "#52c6b8", "#9c8be8"][Math.floor(random() * 4)]
+            });
+          }
+        }
+        lanes.set(row, lane);
+        return lane;
+      }
+
+      function wrapObject(x) {
+        const span = cols + 4;
+        return ((x + 2) % span + span) % span - 2;
+      }
+
+      function resetRun() {
+        lanes = new Map();
+        player = { x: 4, row: 1 };
+        rideLog = null;
+        score = 0;
+        elapsed = 0;
+        state = "playing";
+        screen.hidden = true;
+        scoreText.textContent = "0";
+        for (let row = -2; row < 13; row++) laneFor(row);
+        lastTime = performance.now();
+      }
+
+      function endRun() {
+        if (state !== "playing") return;
+        state = "over";
+        if (score > best) {
+          best = score;
+          localStorage.setItem("energy-crossing-best", String(best));
+          bestText.textContent = String(best);
+        }
+        screenTitle.textContent = "Run complete";
+        screenCopy.textContent = "You carried the current " + score + " lanes. Best: " + best + ".";
+        startButton.textContent = "PLAY AGAIN";
+        screen.hidden = false;
+      }
+
+      function distanceTo(a, b) {
+        const span = cols + 4;
+        let d = ((a - b + span / 2) % span + span) % span - span / 2;
+        return Math.abs(d);
+      }
+
+      function isOnObject(lane, x, object) {
+        return distanceTo(object.x, x) <= object.width / 2 + (lane.type === "road" ? 0.25 : 0.05);
+      }
+
+      function validatePlayer() {
+        const lane = laneFor(player.row);
+        if (lane.type === "road" && lane.objects.some((object) => isOnObject(lane, player.x, object))) {
+          endRun();
+          return;
+        }
+        if (lane.type === "water") {
+          const log = lane.objects.find((object) => isOnObject(lane, player.x, object));
+          if (!log) {
+            endRun();
+            return;
+          }
+          rideLog = log;
+        } else {
+          rideLog = null;
+        }
+      }
+
+      function move(dx, dy) {
+        if (state !== "playing") return;
+        const nextX = Math.max(0, Math.min(cols - 1, player.x + dx));
+        const nextRow = Math.max(1, player.row + dy);
+        player.x = nextX;
+        player.row = nextRow;
+        score = Math.max(score, player.row - 1);
+        scoreText.textContent = String(score);
+        laneFor(player.row);
+        validatePlayer();
+      }
+
+      function update(dt) {
+        if (state !== "playing") return;
+        elapsed += dt;
+        const pace = 1 + Math.min(score, 80) * 0.012;
+        for (const lane of lanes.values()) {
+          if (lane.type !== "grass") {
+            for (const object of lane.objects) object.x = wrapObject(object.x + object.speed * pace * dt);
+          }
+        }
+        if (rideLog) {
+          player.x += rideLog.speed * pace * dt;
+          if (player.x < 0 || player.x > cols - 1) {
+            endRun();
+            return;
+          }
+        }
+        validatePlayer();
+        const low = Math.floor(player.row) - 4;
+        const high = player.row + 10;
+        for (let row = low; row <= high; row++) laneFor(row);
+        for (const row of lanes.keys()) {
+          if (row < low - 3 || row > high + 3) lanes.delete(row);
+        }
+      }
+
+      function roundedRect(x, y, w, h, r, color) {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.roundRect(x, y, w, h, r);
+        ctx.fill();
+      }
+
+      function drawLane(lane, x, y, cellW, laneH) {
+        if (lane.type === "grass") {
+          ctx.fillStyle = lane.row % 2 ? "#316b5b" : "#2d6658";
+          ctx.fillRect(0, y, width, laneH + 1);
+          ctx.fillStyle = "#78b88d33";
+          for (let i = 0; i < 8; i++) {
+            const px = ((i * 131 + lane.row * 43) % Math.max(1, width));
+            ctx.beginPath();
+            ctx.arc(px, y + 8 + ((i * 19) % Math.max(1, laneH - 12)), 2, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        } else if (lane.type === "road") {
+          ctx.fillStyle = "#30394d";
+          ctx.fillRect(0, y, width, laneH + 1);
+          ctx.fillStyle = "#e7dba44d";
+          for (let x = ((lane.row % 2) * cellW); x < width; x += cellW * 2) {
+            ctx.fillRect(x + cellW * 0.3, y + laneH * 0.48, cellW * 0.75, Math.max(2, laneH * 0.045));
+          }
+          lane.objects.forEach((object, index) => {
+            const cx = (object.x + 0.5) * cellW;
+            if (cx < -cellW * 2 || cx > width + cellW * 2) return;
+            const carW = object.width * cellW;
+            const carH = laneH * 0.48;
+            const cy = y + laneH * 0.26;
+            roundedRect(cx - carW / 2, cy, carW, carH, carH * 0.28, object.color);
+            roundedRect(cx - carW * 0.23, cy + carH * 0.12, carW * 0.46, carH * 0.36, carH * 0.13, "#fff2cf");
+            ctx.fillStyle = "#121b2b";
+            ctx.fillRect(cx - carW * 0.32, cy + carH * 0.77, carW * 0.19, carH * 0.21);
+            ctx.fillRect(cx + carW * 0.13, cy + carH * 0.77, carW * 0.19, carH * 0.21);
+          });
+        } else {
+          ctx.fillStyle = "#1b5473";
+          ctx.fillRect(0, y, width, laneH + 1);
+          ctx.strokeStyle = "#75c8d333";
+          ctx.lineWidth = 1;
+          for (let i = 0; i < 5; i++) {
+            const waveY = y + laneH * (0.2 + i * 0.15);
+            ctx.beginPath();
+            for (let x = 0; x <= width + 8; x += 8) {
+              const waveX = x + Math.sin(elapsed * 2 + x * 0.025 + lane.row) * 4;
+              if (x === 0) ctx.moveTo(waveX, waveY);
+              else ctx.lineTo(waveX, waveY);
+            }
+            ctx.stroke();
+          }
+          lane.objects.forEach((object) => {
+            const cx = (object.x + 0.5) * cellW;
+            if (cx < -cellW * 2 || cx > width + cellW * 2) return;
+            const logW = object.width * cellW;
+            const logH = laneH * 0.48;
+            const cy = y + laneH * 0.26;
+            roundedRect(cx - logW / 2, cy, logW, logH, logH * 0.42, "#b97a4d");
+            ctx.strokeStyle = "#744d3d";
+            ctx.lineWidth = 2;
+            for (let i = -1; i <= 1; i++) {
+              const markX = cx + i * logW * 0.25;
+              ctx.beginPath();
+              ctx.moveTo(markX, cy + logH * 0.18);
+              ctx.lineTo(markX + 2, cy + logH * 0.8);
+              ctx.stroke();
+            }
+          });
+        }
+        ctx.strokeStyle = "#d8eee31a";
+        ctx.beginPath();
+        ctx.moveTo(0, y + laneH);
+        ctx.lineTo(width, y + laneH);
+        ctx.stroke();
+      }
+
+      function drawPlayer(cellW, laneH, y) {
+        const x = (player.x + 0.5) * cellW;
+        const bob = state === "playing" ? Math.sin(elapsed * 8) * Math.min(3, laneH * 0.05) : 0;
+        const cy = y + laneH * 0.51 + bob;
+        ctx.fillStyle = "#09132766";
+        ctx.beginPath();
+        ctx.ellipse(x, cy + laneH * 0.25, cellW * 0.27, laneH * 0.1, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = "#fff2c5";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(x, cy - laneH * 0.2);
+        ctx.lineTo(x + cellW * 0.13, cy - laneH * 0.42);
+        ctx.stroke();
+        ctx.fillStyle = "#ffce59";
+        ctx.beginPath();
+        ctx.arc(x + cellW * 0.14, cy - laneH * 0.43, Math.max(3, cellW * 0.055), 0, Math.PI * 2);
+        ctx.fill();
+        roundedRect(x - cellW * 0.26, cy - laneH * 0.2, cellW * 0.52, laneH * 0.48, laneH * 0.15, "#f1bc55");
+        roundedRect(x - cellW * 0.18, cy - laneH * 0.12, cellW * 0.36, laneH * 0.24, laneH * 0.1, "#204769");
+        ctx.fillStyle = "#eaf8f4";
+        ctx.beginPath();
+        ctx.arc(x - cellW * 0.07, cy - laneH * 0.02, Math.max(2, cellW * 0.03), 0, Math.PI * 2);
+        ctx.arc(x + cellW * 0.07, cy - laneH * 0.02, Math.max(2, cellW * 0.03), 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#fffbde";
+        ctx.beginPath();
+        ctx.arc(x, cy + laneH * 0.21, Math.max(3, cellW * 0.08), 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function draw() {
+        if (!width || !height) return;
+        ctx.clearRect(0, 0, width, height);
+        const sky = ctx.createLinearGradient(0, 0, 0, height);
+        sky.addColorStop(0, "#122849");
+        sky.addColorStop(1, "#0a172e");
+        ctx.fillStyle = sky;
+        ctx.fillRect(0, 0, width, height);
+        const cellW = width / cols;
+        const laneH = Math.max(38, height / 11);
+        const baseRow = Math.floor(player.row) - 2;
+        const playerY = height - 2 * laneH - (player.row - baseRow) * laneH;
+        const firstRow = Math.floor(player.row) - 5;
+        const lastRow = Math.floor(player.row) + 8;
+        for (let row = firstRow; row <= lastRow; row++) {
+          const y = height - 2 * laneH - (row - baseRow) * laneH;
+          drawLane(laneFor(row), 0, y, cellW, laneH);
+        }
+        drawPlayer(cellW, laneH, playerY);
+      }
+
+      function frame(now) {
+        const dt = Math.min(0.04, Math.max(0, (now - lastTime) / 1000));
+        lastTime = now;
+        update(dt);
+        draw();
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame((now) => { lastTime = now; frame(now); });
+
+      function start() {
+        screenTitle.textContent = "Cross the current";
+        screenCopy.textContent = "Dodge the traffic. Ride the floating cells. See how far your little spark can travel.";
+        startButton.textContent = "START RUN";
+        resetRun();
+      }
+      startButton.addEventListener("click", start);
+
+      function handleKey(event) {
+        const key = event.key.toLowerCase();
+        const moves = {
+          arrowup: [0, 1], w: [0, 1],
+          arrowdown: [0, -1], s: [0, -1],
+          arrowleft: [-1, 0], a: [-1, 0],
+          arrowright: [1, 0], d: [1, 0]
+        };
+        if (moves[key]) {
+          event.preventDefault();
+          if (!event.repeat) move(moves[key][0], moves[key][1]);
+        }
+      }
+      window.addEventListener("keydown", handleKey);
+
+      document.querySelectorAll("[data-move]").forEach((button) => {
+        button.addEventListener("pointerdown", (event) => {
+          event.preventDefault();
+          const dir = button.dataset.move;
+          const moves = { up: [0, 1], down: [0, -1], left: [-1, 0], right: [1, 0] };
+          move(moves[dir][0], moves[dir][1]);
+        });
+      });
+
+      canvas.addEventListener("pointerdown", (event) => {
+        pointerStart = { x: event.clientX, y: event.clientY };
+        canvas.setPointerCapture(event.pointerId);
+      });
+      canvas.addEventListener("pointerup", (event) => {
+        if (!pointerStart) return;
+        const dx = event.clientX - pointerStart.x;
+        const dy = event.clientY - pointerStart.y;
+        pointerStart = null;
+        if (Math.max(Math.abs(dx), Math.abs(dy)) < 18) return;
+        if (Math.abs(dx) > Math.abs(dy)) move(dx > 0 ? 1 : -1, 0);
+        else move(0, dy < 0 ? 1 : -1);
+      });
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) lastTime = performance.now();
+      });
+    })();
+  </script>
+</body>
+</html>

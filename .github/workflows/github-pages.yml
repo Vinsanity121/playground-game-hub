@@ -32,6 +32,8 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/game-hub-site"
           cp index.html styles.css games.js "$RUNNER_TEMP/game-hub-site/"
+          mkdir -p "$RUNNER_TEMP/game-hub-site/games"
+          cp -R games/. "$RUNNER_TEMP/game-hub-site/games/"
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v4
         with:
