@@ -38,14 +38,6 @@ const gameOptions = {
     note: 'Clicker',
     cardClass: 'doge-card',
   },
-  dogece: {
-    title: 'Doge Miner CE',
-    sourceLabel: 'FREE COMMUNITY MOD',
-    url: './games/dogeminer-ce/',
-    icon: 'Ð',
-    note: 'Local-save clicker',
-    cardClass: 'dogece-card',
-  },
   polytrack: {
     title: 'PolyTrack',
     sourceLabel: 'UNOFFICIAL BUILD',
@@ -87,11 +79,11 @@ const gameOptions = {
     cardClass: 'deadshot-card',
   },
   crossyroad: {
-    title: 'Road Crossing (Community Clone)',
-    sourceLabel: 'SELF-HOSTED REMAKE',
-    url: './games/crossy-road/',
+    title: 'Crossy Road',
+    sourceLabel: 'ARCADE',
+    url: 'https://crossyroadgame.io/',
     icon: '🐔',
-    note: '3D arcade clone',
+    note: 'Road crossing',
     cardClass: 'crossy-card',
   },
   energycrossing: {
