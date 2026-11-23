@@ -35,6 +35,7 @@ h1{margin:0;color:#f6f3e9;font-size:clamp(30px,5vw,46px);font-weight:650;letter-
 .doge-card{background:linear-gradient(145deg,#b57745,#543d4f 62%,#262743)}
 .cookie-card{background:linear-gradient(145deg,#b77735,#634129 58%,#302238)}
 .polytrack-card{background:linear-gradient(145deg,#399b9c,#285b71 55%,#242747)}
+.game-2048-card{background:linear-gradient(145deg,#8b73d3,#514e89 58%,#25243e)}
 .freerider-jumps-card{background:linear-gradient(145deg,#5b8c42,#315a4e 58%,#242843)}
 .freerider-hd-card{background:linear-gradient(145deg,#6582cb,#3d4e89 58%,#24263f)}
 .snowrider-card{background:linear-gradient(145deg,#76b5cd,#43748f 58%,#252945)}
