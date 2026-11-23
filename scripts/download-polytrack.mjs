@@ -4,7 +4,7 @@ import path from 'node:path';
 const release = '0.6.3';
 const origin = `https://app-polytrack.kodub.com/${release}/`;
 const output = path.resolve('games/polytrack');
-const assetPattern = /["'`]((?:images|audio|fonts|models|data)\/[^"'`\s]+?\.(?:svg|png|jpe?g|webp|gif|mp3|ogg|woff2?|json|wasm))["'`]/g;
+const assetPattern = /["'`]((?:images|audio|fonts|models|data|lib)\/[^"'`\s]+?\.(?:svg|png|jpe?g|webp|gif|mp3|ogg|woff2?|json|wasm))["'`]/g;
 
 await mkdir(output, { recursive: true });
 const get = async (url) => {
@@ -21,7 +21,7 @@ const save = async (relative, response) => {
 };
 
 const page = await (await get(origin + '?')).text();
-const resources = new Set(['error_screen.bundle.js', 'main.bundle.js', 'manifest.json']);
+const resources = new Set(['error_screen.bundle.js', 'main.bundle.js', 'manifest.json', 'forced_square.woff']);
 for (const match of page.matchAll(/(?:src|href)="([^"]+)"/g)) {
   const url = new URL(match[1], origin);
   if (url.origin === new URL(origin).origin && url.pathname.startsWith(new URL(origin).pathname)) {
