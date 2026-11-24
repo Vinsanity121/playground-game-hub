@@ -1,4 +1,4 @@
-name: Deploy game hub to GitHub Pages
+name: Deploy private-hub notice to GitHub Pages
 
 on:
   push:
@@ -28,15 +28,21 @@ jobs:
         uses: actions/checkout@v6
       - name: Set up Pages
         uses: actions/configure-pages@v5
-      - name: Prepare self-hosted PolyTrack
-        run: node scripts/download-polytrack.mjs
-      - name: Prepare public game hub only
+      - name: Prepare non-game landing page
         run: |
           mkdir -p "$RUNNER_TEMP/game-hub-site"
-          cp index.html styles.css games.js "$RUNNER_TEMP/game-hub-site/"
-          mkdir -p "$RUNNER_TEMP/game-hub-site/games"
-          cp -R games/. "$RUNNER_TEMP/game-hub-site/games/"
-      - name: Upload site artifact
+          cat > "$RUNNER_TEMP/game-hub-site/index.html" <<'HTML'
+          <!doctype html>
+          <html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+          <title>Playground</title>
+          <main style="max-width:42rem;margin:12vh auto;padding:2rem;font:16px/1.6 system-ui,sans-serif">
+            <h1>Playground</h1>
+            <p>This address no longer hosts the game files.</p>
+          </main>
+          </html>
+          HTML
+          printf 'Game files are not published from this address.\n' > "$RUNNER_TEMP/game-hub-site/robots.txt"
+      - name: Upload landing page
         uses: actions/upload-pages-artifact@v4
         with:
           path: ${{ runner.temp }}/game-hub-site
