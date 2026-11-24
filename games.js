@@ -32,9 +32,9 @@ const gameOptions = {
     cardClass: 'wbwwb-card',
   },
   crossyroad: {
-    title: 'Road Hopper',
+    title: 'Crossy Road',
     sourceLabel: 'SELF-HOSTED',
-    url: './games/road-hopper/',
+    url: './games/crossy-road/',
     icon: '🛣️',
     note: 'Arcade crossing',
     cardClass: 'crossy-card',
@@ -494,6 +494,7 @@ const gameFrame = document.querySelector('#game-frame');
 const directLink = document.querySelector('#direct-link');
 const gameAttribution = document.querySelector('#game-attribution');
 const gameGrid = document.querySelector('#game-grid');
+const featuredGames = document.querySelector('.featured-games');
 const screenTabs = document.querySelectorAll('[data-screen]');
 const homeLink = document.querySelector('[data-home-link]');
 let currentGame = null;
@@ -505,6 +506,10 @@ function setActiveScreen(screen) {
     tab.setAttribute('aria-selected', String(active));
   });
 }
+
+featuredGames?.querySelectorAll('[data-game]').forEach((button) => {
+  button.addEventListener('click', () => showGame(button.dataset.game));
+});
 
 function showHome() {
   setActiveScreen('home');
