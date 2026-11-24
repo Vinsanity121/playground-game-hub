@@ -31,24 +31,6 @@ const gameOptions = {
     note: 'Arcade runner',
     cardClass: 'energy-crossing-card',
   },
-  komyoAsteroids: {
-    title: 'Asteroids',
-    sourceLabel: 'KOMYO',
-    url: 'https://komyo.online/games/asteroids/',
-    icon: '☄️',
-    note: 'Arcade action',
-    category: 'Action',
-    cardClass: 'komyo-card',
-  },
-  komyoAsteroidsPlus: {
-    title: 'Asteroids+',
-    sourceLabel: 'KOMYO',
-    url: 'https://komyo.online/games/asteroids-plus/',
-    icon: '🚀',
-    note: 'Arcade action',
-    category: 'Action',
-    cardClass: 'komyo-card',
-  },
 };
 
 
