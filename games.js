@@ -105,7 +105,7 @@ function renderGameCards() {
     icon.textContent = game.icon;
     const source = document.createElement('span');
     source.className = 'game-card-source';
-    source.textContent = ({ TABSPAWN: 'TabSpawn', AESTRO: 'Aestro', KOMYO: 'Komyo', 'SELF-HOSTED': 'Self-hosted', 'SELF-HOSTED REUPLOAD': 'Self-hosted' })[game.sourceLabel] || game.sourceLabel;
+    source.textContent = ({ 'SELF-HOSTED': 'Self-hosted' })[game.sourceLabel] || game.sourceLabel;
     const title = document.createElement('span');
     title.className = 'game-card-title';
     title.textContent = game.title;
@@ -202,7 +202,7 @@ function showGame(key) {
   directLink.href = game.url;
   directLink.textContent = 'Open directly ↗';
   gameName.textContent = game.title;
-  gameType.textContent = ({ TABSPAWN: 'TabSpawn', AESTRO: 'Aestro', KOMYO: 'Komyo', 'SELF-HOSTED': 'Self-hosted', 'SELF-HOSTED REUPLOAD': 'Self-hosted' })[game.sourceLabel] || game.sourceLabel;
+  gameType.textContent = ({ 'SELF-HOSTED': 'Self-hosted' })[game.sourceLabel] || game.sourceLabel;
   gamePlayer.setAttribute('aria-label', `${game.title} game`);
   gameFrame.title = game.title;
 
