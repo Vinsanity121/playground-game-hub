@@ -54,6 +54,22 @@ const gameOptions = {
     note: 'Puzzle',
     cardClass: 'game-2048-card',
   },
+  breaklock: {
+    title: 'Breaklock',
+    sourceLabel: 'SELF-HOSTED',
+    url: './games/catalog-sample/breaklock/',
+    icon: '🔐',
+    note: 'Pattern puzzle',
+    cardClass: 'breaklock-card',
+  },
+  wbwwb: {
+    title: 'We Become What We Behold',
+    sourceLabel: 'SELF-HOSTED',
+    url: './games/catalog-sample/we-become-what-we-behold/',
+    icon: '📰',
+    note: 'Interactive story',
+    cardClass: 'wbwwb-card',
+  },
   freeriderjumps: {
     title: 'Free Rider Jumps',
     sourceLabel: 'BIKE GAME',
