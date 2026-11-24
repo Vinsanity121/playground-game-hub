@@ -87,3 +87,5 @@ h1{margin:0;color:#f6f3e9;font-size:clamp(30px,5vw,46px);font-weight:650;letter-
 .energy-crossing-card{background:linear-gradient(145deg,#d48b48,#80563f 58%,#292640)}
 @media(max-width:850px){.featured-games{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
 @media(max-width:520px){.featured-games{grid-template-columns:1fr;gap:10px}}
+
+.game-card-source{position:relative;display:inline-flex;align-items:center;width:max-content;margin:0 0 9px;padding:4px 8px;border:1px solid #ffffff42;border-radius:999px;background:#11131d66;color:#ffffffed;font-size:9px;font-weight:750;letter-spacing:.7px;text-transform:uppercase}

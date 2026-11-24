@@ -140,6 +140,9 @@ function renderGameCards() {
     icon.className = 'game-icon';
     icon.setAttribute('aria-hidden', 'true');
     icon.textContent = game.icon;
+    const source = document.createElement('span');
+    source.className = 'game-card-source';
+    source.textContent = game.sourceLabel === 'TABSPAWN' ? 'TabSpawn' : 'Self-hosted';
     const title = document.createElement('span');
     title.className = 'game-card-title';
     title.textContent = game.title;
@@ -150,7 +153,7 @@ function renderGameCards() {
     arrow.className = 'card-arrow';
     arrow.setAttribute('aria-hidden', 'true');
     arrow.textContent = '↗';
-    playButton.append(icon, title, note, arrow);
+    playButton.append(icon, source, title, note, arrow);
     playButton.addEventListener('click', () => showGame(key));
     const favoriteButton = document.createElement('button');
     favoriteButton.className = 'favorite-toggle';
