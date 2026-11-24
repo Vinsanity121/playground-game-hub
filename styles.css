@@ -30,6 +30,17 @@ body{min-width:320px;min-height:100vh;margin:0;background:radial-gradient(ellips
 h1{margin:0;color:#f6f3e9;font-size:clamp(30px,5vw,46px);font-weight:650;letter-spacing:-1.7px}
 .game-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .game-card{position:relative;min-height:220px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;overflow:hidden;padding:22px;border:1px solid #ffffff20;border-radius:16px;color:#f4f3ee;text-align:left;cursor:pointer;transition:transform .18s,border-color .18s,filter .18s}
+.gta-card{background:linear-gradient(145deg,#78664d,#494168 58%,#202438)}
+.nitro-car-card{background:linear-gradient(145deg,#c66835,#683f5e 58%,#21243d)}
+.dune-dash-card{background:linear-gradient(145deg,#c89544,#8a5439 58%,#28253d)}
+.dig-out-prison-card{background:linear-gradient(145deg,#78854a,#4b5943 58%,#232539)}
+.maggar-card{background:linear-gradient(145deg,#5b9ca0,#35667a 58%,#242747)}
+.moto-x3m-winter-card{background:linear-gradient(145deg,#62b6cf,#486da0 58%,#242747)}
+.truck-simulator-card{background:linear-gradient(145deg,#75808b,#4b5672 58%,#222538)}
+.diep-card{background:linear-gradient(145deg,#6681c0,#45466f 58%,#242747)}
+.football-bros-card{background:linear-gradient(145deg,#6a9b59,#3c6a55 58%,#242747)}
+.basket-bros-card{background:linear-gradient(145deg,#db7f55,#865267 58%,#28243e)}
+.cookie-clicker-card{background:linear-gradient(145deg,#b77735,#634129 58%,#302238)}
 .game-card:hover{transform:translateY(-4px);border-color:#ffffff50;filter:brightness(1.08)}
 .game-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 76% 28%,#ffffff28,transparent 32%);pointer-events:none}
 .doge-card{background:linear-gradient(145deg,#b57745,#543d4f 62%,#262743)}
