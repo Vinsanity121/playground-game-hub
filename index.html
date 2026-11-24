@@ -6,35 +6,12 @@
     <meta name="theme-color" content="#11131d" />
     <meta name="description" content="Choose a game and play it in Playground." />
     <title>Playground — Choose a game</title>
-    <link rel="stylesheet" href="styles.css?v=18" />
-    <script src="games.js?v=15" defer></script>
+    <link rel="stylesheet" href="styles.css?v=19" />
+    <script src="games.js?v=16" defer></script>
     <script src="crossy-road.js?v=2" defer></script>
   </head>
   <body>
-    <section class="unlock-screen" id="unlock-screen" aria-labelledby="unlock-title">
-      <form class="unlock-card" id="unlock-form">
-        <span class="unlock-brand" aria-hidden="true">P</span>
-        <p class="eyebrow">PLAYGROUND</p>
-        <h1 id="unlock-title">Enter code</h1>
-        <label for="access-code">4-digit access code</label>
-        <div class="unlock-controls">
-          <input
-            id="access-code"
-            name="access-code"
-            type="text"
-            inputmode="numeric"
-            pattern="[0-9]{4}"
-            minlength="4"
-            maxlength="4"
-            autocomplete="off"
-            required
-            aria-describedby="unlock-error" />
-          <button type="submit">Unlock</button>
-        </div>
-        <p class="unlock-error" id="unlock-error" role="alert" aria-live="polite" hidden>That code did not work. Try again.</p>
-      </form>
-    </section>
-    <div id="site-content" hidden>
+    <div id="site-content">
     <header class="topbar">
       <a class="brand" href="./" data-home-link aria-label="Playground home"><span>P</span> playground</a>
       <nav class="game-tabs" role="tablist" aria-label="Pages and games">
@@ -48,7 +25,7 @@
           <p class="eyebrow">PLAYGROUND</p>
           <h1 id="home-title">Choose a game</h1>
         </div>
-        <p class="home-message">This was made by members of the Olympus AI club and should be used responsibly</p>
+        <p class="home-message">Please use games responsibly.</p>
         <div class="game-grid" id="game-grid" aria-label="Games"></div>
       </section>
 
