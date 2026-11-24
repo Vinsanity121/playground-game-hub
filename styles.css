@@ -77,3 +77,13 @@ h1{margin:0;color:#f6f3e9;font-size:clamp(30px,5vw,46px);font-weight:650;letter-
 .playtundra-card{background:linear-gradient(145deg,#856c42,#55474c 58%,#242747)}
 @media(max-width:850px){.catalog-controls{grid-template-columns:1fr}.catalog-filters{justify-content:center}}
 @media(max-width:650px){.catalog-controls{gap:8px}.search-box{min-height:42px}.catalog-filter{padding:0 8px;font-size:10px}.game-card-play{padding:16px}.favorite-toggle{top:10px;left:10px;width:32px;height:32px}}
+
+.featured-section{margin:28px 0 34px}
+.featured-section h2{margin:0 2px 14px;color:#f4f3ee;font-size:20px;letter-spacing:-.4px}
+.featured-games{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.featured-games .game-card{display:flex;text-decoration:none}
+.breaklock-card{background:linear-gradient(145deg,#9271c8,#5c4c86 58%,#25243e)}
+.wbwwb-card{background:linear-gradient(145deg,#c27d46,#765447 58%,#292640)}
+.energy-crossing-card{background:linear-gradient(145deg,#d48b48,#80563f 58%,#292640)}
+@media(max-width:850px){.featured-games{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+@media(max-width:520px){.featured-games{grid-template-columns:1fr;gap:10px}}
