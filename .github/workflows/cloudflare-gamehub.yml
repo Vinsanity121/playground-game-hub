@@ -72,6 +72,7 @@ jobs:
           command: pages project create playground-games-hub --production-branch=main
 
       # Publish the latest hub pages and self-hosted game assets.
+      # Rebuild restored catalog and hosted games.
       - name: Deploy game hub
         uses: cloudflare/wrangler-action@v4
         with:
