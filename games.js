@@ -476,7 +476,7 @@ function renderGameCards() {
         ? 'Games you open will appear here.'
         : 'No games match your search.';
   }
-});
+}
 
 gameSearch.addEventListener('input', renderGameCards);
 filterButtons.forEach((button) => {
