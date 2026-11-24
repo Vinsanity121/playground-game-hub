@@ -1,34 +1,3 @@
-const ACCESS_CODE = '1311';
-const ACCESS_SESSION_KEY = 'playground-access-unlocked';
-
-const unlockScreen = document.querySelector('#unlock-screen');
-const siteContent = document.querySelector('#site-content');
-const unlockForm = document.querySelector('#unlock-form');
-const accessCodeInput = document.querySelector('#access-code');
-const unlockError = document.querySelector('#unlock-error');
-
-function showSite() {
-  unlockScreen.hidden = true;
-  siteContent.hidden = false;
-}
-
-if (sessionStorage.getItem(ACCESS_SESSION_KEY) === 'true') {
-  showSite();
-}
-
-unlockForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  if (accessCodeInput.value === ACCESS_CODE) {
-    sessionStorage.setItem(ACCESS_SESSION_KEY, 'true');
-    unlockError.hidden = true;
-    showSite();
-  } else {
-    unlockError.hidden = false;
-    accessCodeInput.value = '';
-    accessCodeInput.focus();
-  }
-});
-
 const gameOptions = {
   polytrack: {
     title: 'PolyTrack',
@@ -77,6 +46,238 @@ const gameOptions = {
     icon: '🛣️',
     note: 'Arcade crossing',
     cardClass: 'crossy-card',
+  },
+  'detective-logic-puzzle': {
+    title: 'Detective Logic Puzzle',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-detective-logic-puzzle',
+    icon: '🕵️',
+    note: 'Logic puzzle',
+    cardClass: 'coolmath-card',
+  },
+  'papas-freezeria': {
+    title: 'Papa\'s Freezeria',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-papas-freezeria',
+    icon: '🍦',
+    note: 'Restaurant',
+    cardClass: 'coolmath-card',
+  },
+  'chess': {
+    title: 'Chess',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-chess',
+    icon: '♟️',
+    note: 'Strategy',
+    cardClass: 'coolmath-card',
+  },
+  'tiny-fishing': {
+    title: 'Tiny Fishing',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-tiny-fishing',
+    icon: '🎣',
+    note: 'Fishing',
+    cardClass: 'coolmath-card',
+  },
+  'worldguessr': {
+    title: 'WorldGuessr',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-worldguessr',
+    icon: '🌍',
+    note: 'Geography',
+    cardClass: 'coolmath-card',
+  },
+  'slice-master': {
+    title: 'Slice Master',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-slice-master',
+    icon: '🔪',
+    note: 'Arcade',
+    cardClass: 'coolmath-card',
+  },
+  'suika': {
+    title: 'Suika Watermelon Game',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-suika-watermelon-game',
+    icon: '🍉',
+    note: 'Merge puzzle',
+    cardClass: 'coolmath-card',
+  },
+  'hangman': {
+    title: 'Hangman',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-hangman',
+    icon: '🔤',
+    note: 'Word game',
+    cardClass: 'coolmath-card',
+  },
+  'moto-x3m': {
+    title: 'Moto X3M',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-moto-x3m',
+    icon: '🏍️',
+    note: 'Bike racing',
+    cardClass: 'coolmath-card',
+  },
+  'moto-x3m-winter': {
+    title: 'Moto X3M Winter',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-moto-x3m-winter',
+    icon: '❄️',
+    note: 'Bike racing',
+    cardClass: 'coolmath-card',
+  },
+  'fireboy-watergirl': {
+    title: 'Fireboy and Watergirl',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-fireboy-and-water-girl-in-the-forest-temple',
+    icon: '🔥',
+    note: 'Co-op platformer',
+    cardClass: 'coolmath-card',
+  },
+  'fireboy-watergirl-5': {
+    title: 'Fireboy and Watergirl 5: Elements',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-fireboy-watergirl-5-elements',
+    icon: '💧',
+    note: 'Co-op platformer',
+    cardClass: 'coolmath-card',
+  },
+  'checkers': {
+    title: 'Checkers',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-checkers',
+    icon: '🔴',
+    note: 'Strategy',
+    cardClass: 'coolmath-card',
+  },
+  'dinosaur-game': {
+    title: 'Dinosaur Game',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-dinosaur-game',
+    icon: '🦖',
+    note: 'Arcade',
+    cardClass: 'coolmath-card',
+  },
+  'planet-clicker': {
+    title: 'Planet Clicker',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-planet-clicker',
+    icon: '🪐',
+    note: 'Clicker',
+    cardClass: 'coolmath-card',
+  },
+  'parking-fury-3': {
+    title: 'Parking Fury 3',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-parking-fury-3',
+    icon: '🚘',
+    note: 'Driving',
+    cardClass: 'coolmath-card',
+  },
+  '8-ball-pool': {
+    title: '8 Ball Pool',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-8-ball-pool',
+    icon: '🎱',
+    note: 'Sports',
+    cardClass: 'coolmath-card',
+  },
+  'maze-challenge': {
+    title: 'Maze Challenge',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-maze-challenge',
+    icon: '🌀',
+    note: 'Maze',
+    cardClass: 'coolmath-card',
+  },
+  'mancala': {
+    title: 'Mancala',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-mancala',
+    icon: '🪨',
+    note: 'Strategy',
+    cardClass: 'coolmath-card',
+  },
+  'cribbage': {
+    title: 'Cribbage',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-cribbage',
+    icon: '🃏',
+    note: 'Card game',
+    cardClass: 'coolmath-card',
+  },
+  'retro-ping-pong': {
+    title: 'Retro Ping Pong',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-retro-ping-pong',
+    icon: '🏓',
+    note: 'Sports',
+    cardClass: 'coolmath-card',
+  },
+  'crazy-eights': {
+    title: 'Crazy Eights',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-crazy-eights',
+    icon: '🂡',
+    note: 'Card game',
+    cardClass: 'coolmath-card',
+  },
+  'snake': {
+    title: 'Snake',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-snake',
+    icon: '🐍',
+    note: 'Arcade',
+    cardClass: 'coolmath-card',
+  },
+  'sugar-sugar': {
+    title: 'Sugar, Sugar',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-sugar-sugar',
+    icon: '🍬',
+    note: 'Physics puzzle',
+    cardClass: 'coolmath-card',
+  },
+  'b-cubed': {
+    title: 'B-Cubed',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-b-cubed',
+    icon: '🧊',
+    note: 'Puzzle',
+    cardClass: 'coolmath-card',
+  },
+  'bloxorz': {
+    title: 'Bloxorz',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-bloxorz',
+    icon: '🟫',
+    note: 'Puzzle',
+    cardClass: 'coolmath-card',
+  },
+  'coolmath-2048': {
+    title: '2048 on Coolmath',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-2048',
+    icon: '🔢',
+    note: 'Puzzle',
+    cardClass: 'coolmath-card',
+  },
+  'coolmath-games-the-game': {
+    title: 'Coolmath Games: The Game',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/0-coolmath-games-the-game',
+    icon: '🎮',
+    note: 'Arcade',
+    cardClass: 'coolmath-card',
+  },
+  'coolmath-catalog': {
+    title: 'Browse Coolmath Games',
+    sourceLabel: 'COOLMATH GAMES',
+    url: 'https://www.coolmathgames.com/all-games',
+    icon: '🕹️',
+    note: 'Game catalog',
+    cardClass: 'coolmath-card',
   },
   energycrossing: {
     title: 'Energy Crossing',
