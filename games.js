@@ -500,17 +500,16 @@ const homeLink = document.querySelector('[data-home-link]');
 let currentGame = null;
 
 function setActiveScreen(screen) {
-  featuredGames.addEventListener('click', (event) => {
-  const gameButton = event.target.closest('[data-game]');
-  if (gameButton) showGame(gameButton.dataset.game);
-});
-
-screenTabs.forEach((tab) => {
+  screenTabs.forEach((tab) => {
     const active = tab.dataset.screen === screen;
     tab.classList.toggle('active', active);
     tab.setAttribute('aria-selected', String(active));
   });
 }
+
+featuredGames.querySelectorAll('[data-game]').forEach((button) => {
+  button.addEventListener('click', () => showGame(button.dataset.game));
+});
 
 function showHome() {
   setActiveScreen('home');
