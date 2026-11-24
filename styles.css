@@ -81,7 +81,7 @@ h1{margin:0;color:#f6f3e9;font-size:clamp(30px,5vw,46px);font-weight:650;letter-
 .featured-section{margin:28px 0 34px}
 .featured-section h2{margin:0 2px 14px;color:#f4f3ee;font-size:20px;letter-spacing:-.4px}
 .featured-games{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.featured-games .game-card{display:flex;text-decoration:none}
+.featured-games .game-card{display:flex;appearance:none;font:inherit;text-align:left}
 .breaklock-card{background:linear-gradient(145deg,#9271c8,#5c4c86 58%,#25243e)}
 .wbwwb-card{background:linear-gradient(145deg,#c27d46,#765447 58%,#292640)}
 .energy-crossing-card{background:linear-gradient(145deg,#d48b48,#80563f 58%,#292640)}
