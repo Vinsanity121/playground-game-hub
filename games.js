@@ -405,7 +405,11 @@ function getVisibleGames() {
   const query = gameSearch.value.trim().toLocaleLowerCase();
   let entries = Object.entries(gameOptions);
   if (activeFilter === 'favorites') entries = entries.filter(([key]) => favoriteKeys.has(key));
-  if (activeFilter === 'recent') entries = recentKeys.map((key) => [key, gameOptions[key]].filter(([, game]) => Boolean(game));
+  if (activeFilter === 'recent') {
+    entries = recentKeys
+      .filter((key) => Boolean(gameOptions[key]))
+      .map((key) => [key, gameOptions[key]]);
+  }
   if (!query) return entries;
   return entries.filter(([, game]) => [game.title, game.note, game.category, game.sourceLabel]
     .filter(Boolean).join(' ').toLocaleLowerCase().includes(query));
