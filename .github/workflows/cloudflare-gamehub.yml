@@ -9,6 +9,7 @@ on:
       - 'styles.css'
       - 'games.js'
       - 'games/crossy-road/**'
+      - 'games/catalog-sample/**'
       - 'scripts/download-polytrack.mjs'
       - '.github/workflows/cloudflare-gamehub.yml'
   workflow_dispatch:
