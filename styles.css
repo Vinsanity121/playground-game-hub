@@ -74,6 +74,8 @@ h1{margin:0;color:#f6f3e9;font-size:clamp(30px,5vw,46px);font-weight:650;letter-
 .favorite-toggle{position:absolute;z-index:3;top:14px;left:14px;width:36px;height:36px;display:grid;place-items:center;border:1px solid #ffffff38;border-radius:50%;background:#11131d55;color:#f3c85b;font-size:21px;line-height:1;cursor:pointer}
 .favorite-toggle:hover{background:#11131ddd;transform:scale(1.05)}
 .tabspawn-card{background:linear-gradient(145deg,#336b77,#29465c 58%,#242747)}
+.aestro-card{background:linear-gradient(145deg,#70458f,#493b72 58%,#242747)}
+.komyo-card{background:linear-gradient(145deg,#a75158,#674054 58%,#242747)}
 .playtundra-card{background:linear-gradient(145deg,#856c42,#55474c 58%,#242747)}
 @media(max-width:850px){.catalog-controls{grid-template-columns:1fr}.catalog-filters{justify-content:center}}
 @media(max-width:650px){.catalog-controls{gap:8px}.search-box{min-height:42px}.catalog-filter{padding:0 8px;font-size:10px}.game-card-play{padding:16px}.favorite-toggle{top:10px;left:10px;width:32px;height:32px}}
