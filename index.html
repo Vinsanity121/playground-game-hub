@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#11131d" />
     <meta name="description" content="Choose a game and play it in Playground." />
     <title>Playground — Choose a game</title>
-    <link rel="stylesheet" href="styles.css?v=20" />
-    <script src="games.js?v=17" defer></script>
+    <link rel="stylesheet" href="styles.css?v=21" />
+    <script src="games.js?v=18" defer></script>
     <script src="crossy-road.js?v=2" defer></script>
   </head>
   <body>
@@ -25,6 +25,17 @@
           <p class="eyebrow">PLAYGROUND</p>
           <h1 id="home-title">Choose a game</h1>
         </div>
+        <section class="featured-section" aria-labelledby="featured-games-title">
+          <h2 id="featured-games-title">Self-hosted games</h2>
+          <div class="featured-games">
+            <a class="game-card polytrack-card" href="./games/polytrack/"><span class="game-icon" aria-hidden="true">🏁</span><span class="game-card-title">PolyTrack</span><span class="game-card-note">Racing</span></a>
+            <a class="game-card game-2048-card" href="./games/catalog-sample/2048/"><span class="game-icon" aria-hidden="true">🔢</span><span class="game-card-title">2048</span><span class="game-card-note">Puzzle</span></a>
+            <a class="game-card breaklock-card" href="./games/catalog-sample/breaklock/"><span class="game-icon" aria-hidden="true">🔐</span><span class="game-card-title">Breaklock</span><span class="game-card-note">Pattern puzzle</span></a>
+            <a class="game-card wbwwb-card" href="./games/catalog-sample/we-become-what-we-behold/"><span class="game-icon" aria-hidden="true">📰</span><span class="game-card-title">We Become What We Behold</span><span class="game-card-note">Interactive story</span></a>
+            <a class="game-card crossy-card" href="./games/crossy-road/"><span class="game-icon" aria-hidden="true">🛣️</span><span class="game-card-title">Crossy Road</span><span class="game-card-note">Arcade crossing</span></a>
+            <a class="game-card energy-crossing-card" href="./games/energy-crossing/"><span class="game-icon" aria-hidden="true">⚡</span><span class="game-card-title">Energy Crossing</span><span class="game-card-note">Arcade runner</span></a>
+          </div>
+        </section>
         <div class="catalog-controls">
           <label class="search-box" for="game-search">
             <span aria-hidden="true">⌕</span>
