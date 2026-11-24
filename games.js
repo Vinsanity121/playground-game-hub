@@ -87,11 +87,11 @@ const gameOptions = {
     cardClass: 'deadshot-card',
   },
   crossyroad: {
-    title: 'Crossy Road',
-    sourceLabel: 'ARCADE',
-    url: 'https://crossyroadgame.io/',
-    icon: '🐔',
-    note: 'Road crossing',
+    title: 'Road Hopper',
+    sourceLabel: 'SELF-HOSTED',
+    url: './games/road-hopper/',
+    icon: '🛣️',
+    note: 'Arcade crossing',
     cardClass: 'crossy-card',
   },
   energycrossing: {
