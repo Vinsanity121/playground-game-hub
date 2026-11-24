@@ -409,6 +409,8 @@ function getVisibleGames() {
     entries = recentKeys
       .filter((key) => Boolean(gameOptions[key]))
       .map((key) => [key, gameOptions[key]]);
+  } else {
+    entries.sort(([, first], [, second]) => first.title.localeCompare(second.title, undefined, { sensitivity: 'base' }));
   }
   if (!query) return entries;
   return entries.filter(([, game]) => [game.title, game.note, game.category, game.sourceLabel]
