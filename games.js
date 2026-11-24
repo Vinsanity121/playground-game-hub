@@ -70,14 +70,6 @@ const gameOptions = {
     note: 'Clicker',
     cardClass: 'cookie-clicker-card',
   },
-  freeriderjumps: {
-    title: 'Free Rider Jumps',
-    sourceLabel: 'BIKE GAME',
-    url: 'https://freeriderjumps.com/',
-    icon: '🚴',
-    note: 'Bike tracks',
-    cardClass: 'freerider-jumps-card',
-  },
   crossyroad: {
     title: 'Road Hopper',
     sourceLabel: 'SELF-HOSTED',
