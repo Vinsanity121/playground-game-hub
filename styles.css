@@ -30,31 +30,16 @@ body{min-width:320px;min-height:100vh;margin:0;background:radial-gradient(ellips
 h1{margin:0;color:#f6f3e9;font-size:clamp(30px,5vw,46px);font-weight:650;letter-spacing:-1.7px}
 .game-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .game-card{position:relative;min-height:220px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;overflow:hidden;padding:22px;border:1px solid #ffffff20;border-radius:16px;color:#f4f3ee;text-align:left;cursor:pointer;transition:transform .18s,border-color .18s,filter .18s}
-.gta-card{background:linear-gradient(145deg,#78664d,#494168 58%,#202438)}
-.nitro-car-card{background:linear-gradient(145deg,#c66835,#683f5e 58%,#21243d)}
-.dune-dash-card{background:linear-gradient(145deg,#c89544,#8a5439 58%,#28253d)}
-.dig-out-prison-card{background:linear-gradient(145deg,#78854a,#4b5943 58%,#232539)}
-.maggar-card{background:linear-gradient(145deg,#5b9ca0,#35667a 58%,#242747)}
-.moto-x3m-winter-card{background:linear-gradient(145deg,#62b6cf,#486da0 58%,#242747)}
-.truck-simulator-card{background:linear-gradient(145deg,#75808b,#4b5672 58%,#222538)}
-.diep-card{background:linear-gradient(145deg,#6681c0,#45466f 58%,#242747)}
-.football-bros-card{background:linear-gradient(145deg,#6a9b59,#3c6a55 58%,#242747)}
-.basket-bros-card{background:linear-gradient(145deg,#db7f55,#865267 58%,#28243e)}
 .cookie-clicker-card{background:linear-gradient(145deg,#b77735,#634129 58%,#302238)}
 .game-card:hover{transform:translateY(-4px);border-color:#ffffff50;filter:brightness(1.08)}
 .game-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 76% 28%,#ffffff28,transparent 32%);pointer-events:none}
-.doge-card{background:linear-gradient(145deg,#b57745,#543d4f 62%,#262743)}
 .cookie-card{background:linear-gradient(145deg,#b77735,#634129 58%,#302238)}
 .polytrack-card{background:linear-gradient(145deg,#399b9c,#285b71 55%,#242747)}
 .game-2048-card{background:linear-gradient(145deg,#8b73d3,#514e89 58%,#25243e)}
 .freerider-jumps-card{background:linear-gradient(145deg,#5b8c42,#315a4e 58%,#242843)}
 .freerider-hd-card{background:linear-gradient(145deg,#6582cb,#3d4e89 58%,#24263f)}
-.snowrider-card{background:linear-gradient(145deg,#76b5cd,#43748f 58%,#252945)}
 .shredsauce-card{background:linear-gradient(145deg,#ad557e,#6c416d 58%,#282540)}
-.shellshock-card{background:linear-gradient(145deg,#87a640,#556b38 58%,#2a2c39)}
-.deadshot-card{background:linear-gradient(145deg,#c76543,#784449 58%,#25243e)}
 .crossy-card{background:linear-gradient(145deg,#5b9c78,#39695e 58%,#272944)}
-.granny-card{background:linear-gradient(145deg,#766195,#494168 58%,#202438)}
 .game-icon{position:absolute;right:22px;top:19px;width:84px;height:84px;display:grid;place-items:center;border:1px solid #ffffff4b;border-radius:50%;background:#11131d38;color:#fff0bf;font-size:50px;text-shadow:0 5px 18px #15132388}
 .cookie-card .game-icon{font-size:45px}
 .polytrack-card .game-icon{font-size:42px}
