@@ -30,6 +30,7 @@ body{min-width:320px;min-height:100vh;margin:0;background:radial-gradient(ellips
 h1{margin:0;color:#f6f3e9;font-size:clamp(30px,5vw,46px);font-weight:650;letter-spacing:-1.7px}
 .game-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .game-card{position:relative;min-height:220px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;overflow:hidden;padding:22px;border:1px solid #ffffff20;border-radius:16px;color:#f4f3ee;text-align:left;cursor:pointer;transition:transform .18s,border-color .18s,filter .18s}
+.coolmath-card{background:linear-gradient(145deg,#397b8a,#285c70 58%,#252742)}
 .cookie-clicker-card{background:linear-gradient(145deg,#b77735,#634129 58%,#302238)}
 .game-card:hover{transform:translateY(-4px);border-color:#ffffff50;filter:brightness(1.08)}
 .game-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 76% 28%,#ffffff28,transparent 32%);pointer-events:none}
