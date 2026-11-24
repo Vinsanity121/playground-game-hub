@@ -8,9 +8,7 @@ on:
       - 'index.html'
       - 'styles.css'
       - 'games.js'
-      - 'games/crossy-road/**'
       - 'games/catalog-sample/**'
-      - 'scripts/download-polytrack.mjs'
       - '.github/workflows/cloudflare-gamehub.yml'
   workflow_dispatch:
 
@@ -28,28 +26,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-
-      - name: Prepare self-hosted PolyTrack
-        run: node scripts/download-polytrack.mjs
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
-      - name: Export and place game files
-        run: |
-          git clone https://github.com/EvanBacon/Expo-Crossy-Road.git "$RUNNER_TEMP/crossy-road-source"
-          git -C "$RUNNER_TEMP/crossy-road-source" checkout 6f2e84e580c9c8f2b432aa365f706d45d96d8bc9
-          cd "$RUNNER_TEMP/crossy-road-source"
-          node -e 'const fs=require("node:fs");const p="app.json";const c=JSON.parse(fs.readFileSync(p,"utf8"));c.expo.experiments={...c.expo.experiments,baseUrl:"/games/crossy-road"};fs.writeFileSync(p,JSON.stringify(c,null,2)+"\n")'
-          pnpm install --no-frozen-lockfile
-          pnpm exec expo export -p web
-          mkdir -p "$GITHUB_WORKSPACE/games/crossy-road"
-          cp -R dist/. "$GITHUB_WORKSPACE/games/crossy-road/"
-          cp LICENSE README.md "$GITHUB_WORKSPACE/games/crossy-road/"
 
       - name: Check required Cloudflare secrets
         env:
