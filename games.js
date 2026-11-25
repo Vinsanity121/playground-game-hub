@@ -1,4 +1,13 @@
 const gameOptions = {
+  dinoRun: {
+    title: 'Dino Run',
+    sourceLabel: 'OPEN SOURCE · SELF-HOSTED',
+    url: './games/dino-run/',
+    icon: '🦖',
+    note: 'Endless runner',
+    category: 'Arcade & Runners',
+    cardClass: 'dino-run-card',
+  },
   polytrack: {
     title: 'PolyTrack',
     sourceLabel: 'SELF-HOSTED REUPLOAD',
@@ -493,6 +502,7 @@ const gamePlayer = document.querySelector('#game-player');
 const gameFrame = document.querySelector('#game-frame');
 const directLink = document.querySelector('#direct-link');
 const gameAttribution = document.querySelector('#game-attribution');
+const dinoRunAttribution = document.querySelector('#dino-run-attribution');
 const gameGrid = document.querySelector('#game-grid');
 const featuredGames = document.querySelector('.featured-games');
 const screenTabs = document.querySelectorAll('[data-screen]');
@@ -530,6 +540,7 @@ function showGame(key) {
   playerScreen.classList.remove('hidden');
   directLink.hidden = false;
   gameAttribution.hidden = key !== 'polytrack';
+  dinoRunAttribution.hidden = key !== 'dinoRun';
   directLink.href = game.url;
   directLink.textContent = 'Open directly ↗';
   gameName.textContent = game.title;
