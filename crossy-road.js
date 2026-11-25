@@ -6,29 +6,33 @@
   fullscreenButton.className = 'direct-link';
   fullscreenButton.type = 'button';
   fullscreenButton.textContent = 'Fullscreen ⛶';
-  fullscreenButton.setAttribute('aria-label', 'Show Crossy Road fullscreen');
+  fullscreenButton.setAttribute('aria-label', 'Enter game fullscreen');
+  fullscreenButton.setAttribute('aria-pressed', 'false');
   fullscreenButton.style.cssText = 'font:inherit;cursor:pointer;margin-left:auto';
   fullscreenButton.hidden = true;
   gameHeading.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:12px';
   gameHeading.append(fullscreenButton);
 
+  function updateFullscreenButton() {
+    const active = document.fullscreenElement === gameFrame;
+    fullscreenButton.textContent = active ? 'Exit fullscreen' : 'Fullscreen ⛶';
+    fullscreenButton.setAttribute('aria-label', active ? 'Exit game fullscreen' : 'Enter game fullscreen');
+    fullscreenButton.setAttribute('aria-pressed', String(active));
+  }
+
   fullscreenButton.addEventListener('click', async () => {
     try {
-      if (document.fullscreenElement === gameFrame) {
+      if (document.fullscreenElement) {
         await document.exitFullscreen();
       } else if (gameFrame.requestFullscreen) {
         await gameFrame.requestFullscreen();
       }
     } catch {
-      fullscreenButton.title = 'Use the browser fullscreen control to expand the game.';
+      fullscreenButton.title = 'Fullscreen is unavailable for this game or browser.';
     }
   });
 
-  document.addEventListener('fullscreenchange', () => {
-    fullscreenButton.textContent = document.fullscreenElement === gameFrame
-      ? 'Exit fullscreen'
-      : 'Fullscreen ⛶';
-  });
+  document.addEventListener('fullscreenchange', updateFullscreenButton);
 
   document.addEventListener('click', (event) => {
     if (event.target.closest('[data-screen="home"], [data-home-link]')) {
@@ -36,13 +40,11 @@
       return;
     }
 
-    const selectedCard = event.target.closest('.game-card');
-    if (!selectedCard) return;
+    if (!event.target.closest('.game-card')) return;
 
     window.setTimeout(() => {
-      const selectedTitle = selectedCard.querySelector('.game-card-title')?.textContent.trim();
       const playerScreen = document.querySelector('#player-screen');
-      fullscreenButton.hidden = playerScreen.classList.contains('hidden') || selectedTitle !== 'Crossy Road';
+      fullscreenButton.hidden = playerScreen.classList.contains('hidden');
     }, 0);
   });
 })();
